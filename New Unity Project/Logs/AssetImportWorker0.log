@@ -1,0 +1,584 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.8f1 (507919d4fff5) revision 5273881'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 10 Education; OS build 19042.985; Version 2009; 64bit' Language: 'en' Physical Memory: 16313 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+ COMMAND LINE ARGUMENTS:
+C:\Unity Projects\2020.3.8f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+C:/Unity Projects/New Unity Project
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+60021
+Successfully changed project path to: C:/Unity Projects/New Unity Project
+C:/Unity Projects/New Unity Project
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 29.75 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.8f1 (507919d4fff5)
+[Subsystems] Discovering subsystems at path C:/Unity Projects/2020.3.8f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Unity Projects/New Unity Project/Assets
+GfxDevice: creating device client; threaded=0
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1080 Ti (ID=0x1b06)
+    Vendor:   
+    VRAM:     11127 MB
+    Driver:   27.21.14.5671
+Initialize mono
+Mono path[0] = 'C:/Unity Projects/2020.3.8f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Unity Projects/2020.3.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Unity Projects/2020.3.8f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56096
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Unity Projects/2020.3.8f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002364 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 34.07 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.389 seconds
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.001364 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.975 seconds
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 0.24 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1145 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 83.9 MB.
+System memory in use after: 83.9 MB.
+
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1586.
+Total: 2.695600 ms (FindLiveObjects: 0.285800 ms CreateObjectMapping: 0.143100 ms MarkObjects: 2.188600 ms  DeleteObjects: 0.077200 ms)
+
+========================================================================
+Received Import Request.
+  path: Assets/PVRUnity/src/PVRControllerManager.cs
+  artifactKey: Guid(5ed0708661a6bff4587d3edc3ee98162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PVRUnity/src/PVRControllerManager.cs using Guid(5ed0708661a6bff4587d3edc3ee98162) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a2f37d64b50ff5a42aa6aa47d21e81a') in 0.041606 seconds
+  Import took 0.043376 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 997.425829 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/block_puzzle_A_tinker.obj
+  artifactKey: Guid(2eae2f08a1034eb43b263aaa2f4cdf36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/block_puzzle_A_tinker.obj using Guid(2eae2f08a1034eb43b263aaa2f4cdf36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1769d0400ba64ef388cc0db57609c901') in 0.131268 seconds
+  Import took 0.133666 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000281 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Demon.obj
+  artifactKey: Guid(5a046b7115c3ea74a9587b3d05fc0146) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Demon.obj using Guid(5a046b7115c3ea74a9587b3d05fc0146) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6ecf7d8ba7255315046eb015659c77e6') in 0.016233 seconds
+  Import took 0.018637 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000267 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/block_puzzle_base_tinker.obj
+  artifactKey: Guid(541223c7f60139946afb1078d4661d5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/block_puzzle_base_tinker.obj using Guid(541223c7f60139946afb1078d4661d5b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '294636bc8fed00961922525ad87767ed') in 0.017207 seconds
+  Import took 0.020040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/block_puzzle_B_tinker.obj
+  artifactKey: Guid(5f9c8519819690b4d83d64011b36f67e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/block_puzzle_B_tinker.obj using Guid(5f9c8519819690b4d83d64011b36f67e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0a0d44d50854565d83a426e18377bf09') in 0.015852 seconds
+  Import took 0.018363 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000245 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/block_puzzle_D_tinker.obj
+  artifactKey: Guid(ddc197e6bff5b06478ac098df7099be1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/block_puzzle_D_tinker.obj using Guid(ddc197e6bff5b06478ac098df7099be1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78edb53a63f26b4ea33c11fc147dd4e7') in 0.016610 seconds
+  Import took 0.018894 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000248 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/block_puzzle_C_tinker.obj
+  artifactKey: Guid(4c004764a339b0b448f8be71420634d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/block_puzzle_C_tinker.obj using Guid(4c004764a339b0b448f8be71420634d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1edaf3e8fa24dda84c28a9f20c0e5d1e') in 0.011722 seconds
+  Import took 0.014040 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000172 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/bunny.obj
+  artifactKey: Guid(441e26bda1823b3448d362c85e383552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/bunny.obj using Guid(441e26bda1823b3448d362c85e383552) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fbffbf36639038262afc2f61c0389fdc') in 0.016500 seconds
+  Import took 0.019834 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.322237 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials
+  artifactKey: Guid(2e735313011284b4cb776e0ebb071364) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials using Guid(2e735313011284b4cb776e0ebb071364) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '014ea9e786a5339112dd160d61e392fe') in 0.005446 seconds
+  Import took 0.007176 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.056802 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/defaultMat.mat
+  artifactKey: Guid(1a32e63e54b98aa4e95a73d21a22861b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/defaultMat.mat using Guid(1a32e63e54b98aa4e95a73d21a22861b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ae8a84e8ea85fe09bd5196b38939598') in 0.024275 seconds
+  Import took 0.030803 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000239 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/group_3888547Mat.mat
+  artifactKey: Guid(cff01ede41d923144885ee12376b266e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/group_3888547Mat.mat using Guid(cff01ede41d923144885ee12376b266e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '48d8f890ce1ae5d38a4983967f597fec') in 0.010254 seconds
+  Import took 0.011832 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000211 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/MetalBumpMat.mat
+  artifactKey: Guid(9c86b943f3c21ad4b902026a869f596c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/MetalBumpMat.mat using Guid(9c86b943f3c21ad4b902026a869f596c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '75d311fbdd1a1160f52166abd28ba022') in 0.009377 seconds
+  Import took 0.011536 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000347 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/group_16089887Mat.mat
+  artifactKey: Guid(b074d6a594b938d4c9fd8ad607b04423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/group_16089887Mat.mat using Guid(b074d6a594b938d4c9fd8ad607b04423) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd46de5172b5a371ef368d4d86dc5dbd') in 0.018443 seconds
+  Import took 0.020163 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000247 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/group_6383466Mat.mat
+  artifactKey: Guid(1bc19c226f2cb984482a4c8dff8c7292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/group_6383466Mat.mat using Guid(1bc19c226f2cb984482a4c8dff8c7292) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a29860623cac8b39cebc506564ea24c5') in 0.009691 seconds
+  Import took 0.011729 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/OpenHaptics/HapticDemos/models/Materials/group_15277357Mat.mat
+  artifactKey: Guid(639b374694122f644974a1252761b308) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/models/Materials/group_15277357Mat.mat using Guid(639b374694122f644974a1252761b308) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '552dc57d97c422d39c84350b62165db7') in 0.009391 seconds
+  Import took 0.011345 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.611313 seconds.
+  path: Assets/PVRUnity/Prefabs/PVRCameraRig.prefab
+  artifactKey: Guid(bc5124ce8f91d8a44a8a98653e6595f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PVRUnity/Prefabs/PVRCameraRig.prefab using Guid(bc5124ce8f91d8a44a8a98653e6595f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1cfe541e0bab3e91a28279ad7309e2c5') in 0.011622 seconds
+  Import took 0.018311 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/PVRUnity/Prefabs/PVRSession.prefab
+  artifactKey: Guid(7118a468ffa319c4fbbadd207c6807f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/PVRUnity/Prefabs/PVRSession.prefab using Guid(7118a468ffa319c4fbbadd207c6807f1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '753302174d850b3f899c998336ad4cfb') in 0.003688 seconds
+  Import took 0.005191 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.007247 seconds.
+  path: Assets/OpenHaptics/HapticPrefabs/MorePrefabs/Grabber.prefab
+  artifactKey: Guid(984c931d79a564344be3ecb57785fe28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticPrefabs/MorePrefabs/Grabber.prefab using Guid(984c931d79a564344be3ecb57785fe28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42df75008c1d5c4b58ada1045beb80f2') in 0.012285 seconds
+  Import took 0.014116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000289 seconds.
+  path: Assets/OpenHaptics/HapticPrefabs/MorePrefabs/HapticVRBlock.prefab
+  artifactKey: Guid(129bb4b9fadac644a8857c087adea25e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticPrefabs/MorePrefabs/HapticVRBlock.prefab using Guid(129bb4b9fadac644a8857c087adea25e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f127fab847b5add6bb95d4972b643c2') in 0.003697 seconds
+  Import took 0.010054 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000278 seconds.
+  path: Assets/OpenHaptics/HapticPrefabs/MorePrefabs/HapticDevice.prefab
+  artifactKey: Guid(c8dac93a5b0553b4cbf47d2e8668725b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticPrefabs/MorePrefabs/HapticDevice.prefab using Guid(c8dac93a5b0553b4cbf47d2e8668725b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cff1964441d2e230b050f231cbbfa164') in 0.003663 seconds
+  Import took 0.005378 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 6.153515 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_A_tinker.prefab
+  artifactKey: Guid(cbb79952d2c1cf84398cb5098a9f0fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_A_tinker.prefab using Guid(cbb79952d2c1cf84398cb5098a9f0fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fd38f2585502fc6de0deb6f85e9c8bc') in 0.008711 seconds
+  Import took 0.010467 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000274 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_D_tinker.prefab
+  artifactKey: Guid(3c305ee60494da742b11901b111d0277) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_D_tinker.prefab using Guid(3c305ee60494da742b11901b111d0277) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a185883efc0ba6e65563ae9e3fa604db') in 0.006279 seconds
+  Import took 0.007802 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000246 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_C_tinker.prefab
+  artifactKey: Guid(8be5cb14f1b31384384da70ec67262c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_C_tinker.prefab using Guid(8be5cb14f1b31384384da70ec67262c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '554fdafd3f6e8a8f9d9d3068bdd1046b') in 0.006855 seconds
+  Import took 0.008910 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000245 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_base_tinker.prefab
+  artifactKey: Guid(7ba5b7c55ab72ff44af793899909f9c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_base_tinker.prefab using Guid(7ba5b7c55ab72ff44af793899909f9c6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17cad9b3a43c8d1182a825935b68c420') in 0.010569 seconds
+  Import took 0.012815 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000190 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/bunny.prefab
+  artifactKey: Guid(9ac8bc540adede641a2d07b0c05c3f62) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/bunny.prefab using Guid(9ac8bc540adede641a2d07b0c05c3f62) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6e901f8a52595091f377c8677c041e32') in 0.008606 seconds
+  Import took 0.015517 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000182 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_B_tinker.prefab
+  artifactKey: Guid(6efca9754f8a0014c963cbae379adeaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/block_puzzle_B_tinker.prefab using Guid(6efca9754f8a0014c963cbae379adeaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0328ab1095f24a12eb7de5603056eb59') in 0.199129 seconds
+  Import took 0.201373 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000234 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Prefabs/Demon.prefab
+  artifactKey: Guid(cfdf80968bd0334449acde4ce1891b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Prefabs/Demon.prefab using Guid(cfdf80968bd0334449acde4ce1891b86) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6d638872d786e49019b304a77eea27f5') in 0.008812 seconds
+  Import took 0.010648 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.179843 seconds.
+  path: Assets/OpenHaptics/HapticDemos/UI/3D Systems logo mark only for light bkgrd.png
+  artifactKey: Guid(94e1f78ecaf21ef4bbd79e1b38a7efe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/UI/3D Systems logo mark only for light bkgrd.png using Guid(94e1f78ecaf21ef4bbd79e1b38a7efe2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '78fa6843add91190f997b47579481054') in 0.033741 seconds
+  Import took 0.035473 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/OpenHaptics/HapticDemos/UI/camera_rotate.png
+  artifactKey: Guid(319322089c476b7419519fec5c4d501d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/UI/camera_rotate.png using Guid(319322089c476b7419519fec5c4d501d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f008fdb0f35a250f768c660396db329f') in 0.007082 seconds
+  Import took 0.009173 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/OpenHaptics/HapticDemos/UI/simple_guage.png
+  artifactKey: Guid(c9742f5808e52e244b7280587c05101d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/UI/simple_guage.png using Guid(c9742f5808e52e244b7280587c05101d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a67941e7ca33dd9d3b134a764d633b96') in 0.011542 seconds
+  Import took 0.013326 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 15.228232 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/block.mat
+  artifactKey: Guid(07047b10626e6d342bc1fb02877c7a26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/block.mat using Guid(07047b10626e6d342bc1fb02877c7a26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8c2127c1d0890156cc97d107cc43bd7') in 0.009661 seconds
+  Import took 0.011581 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000251 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/wood5_a.png
+  artifactKey: Guid(1c0912bb78e153640a61618c57d82aff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/wood5_a.png using Guid(1c0912bb78e153640a61618c57d82aff) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d61c362643463048e9a199f3693982e') in 0.008711 seconds
+  Import took 0.010298 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000220 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/grid.mat
+  artifactKey: Guid(ba338aa1f4e143e41a84f8891a8ba2ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/grid.mat using Guid(ba338aa1f4e143e41a84f8891a8ba2ad) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '96f11a9b697242ca425856f4744d66db') in 0.010620 seconds
+  Import took 0.012632 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000240 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/wood_b.mat
+  artifactKey: Guid(fa377e3abcbf51a428dfdde817ca883f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/wood_b.mat using Guid(fa377e3abcbf51a428dfdde817ca883f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '722bca64204a9900b2afa31143ac9788') in 0.011581 seconds
+  Import took 0.013361 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000345 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/BlockPhysMat.physicMaterial
+  artifactKey: Guid(c1d7b08c5b379e64eb4a290d5655a929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/BlockPhysMat.physicMaterial using Guid(c1d7b08c5b379e64eb4a290d5655a929) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4d42045c7e075506b0adbc2e30abbbd3') in 0.004746 seconds
+  Import took 0.007398 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000279 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/DarkBrown.mat
+  artifactKey: Guid(2f9e2510e16e6e6459bfd1be5078e675) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/DarkBrown.mat using Guid(2f9e2510e16e6e6459bfd1be5078e675) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00f7823814ce3fa72d0be83f51a1a906') in 0.011286 seconds
+  Import took 0.012974 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/translucent_blue.mat
+  artifactKey: Guid(598788161cc8c8f46b7d756a43e52376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/translucent_blue.mat using Guid(598788161cc8c8f46b7d756a43e52376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84e3a2894b6e76186e64b5b638a6d75a') in 0.009755 seconds
+  Import took 0.012553 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000185 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/translucent_orange.mat
+  artifactKey: Guid(edf9c3423d83c9640a430f464ac4d399) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/translucent_orange.mat using Guid(edf9c3423d83c9640a430f464ac4d399) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '533765d0547f3126703389a1f34a6aba') in 0.015546 seconds
+  Import took 0.017709 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000249 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/wood5_b.png
+  artifactKey: Guid(cd28bbbe511826048b38b22696fb5b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/wood5_b.png using Guid(cd28bbbe511826048b38b22696fb5b27) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b68d4f8c236aa5b0ae0ffc604bfc5d69') in 0.009098 seconds
+  Import took 0.011299 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/translucent_green.mat
+  artifactKey: Guid(e5baaf9ac6ea56c42899cfddf539e567) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/translucent_green.mat using Guid(e5baaf9ac6ea56c42899cfddf539e567) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef37b08338c0e5281e6c0a533999ae0a') in 0.011635 seconds
+  Import took 0.013563 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000235 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/button_Icon.png
+  artifactKey: Guid(c6203dbf5d8336346855a7c4f0cdcdd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/button_Icon.png using Guid(c6203dbf5d8336346855a7c4f0cdcdd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aca4a888cd34e3a85a5e00bd5b42cc42') in 0.018173 seconds
+  Import took 0.020428 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000220 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/check.png
+  artifactKey: Guid(411808b8a4a898b40b87a988ffa1a8d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/check.png using Guid(411808b8a4a898b40b87a988ffa1a8d6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '85b74bbaf733e1b39696c23218900dc6') in 0.008493 seconds
+  Import took 0.010269 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/TouchIcon.png
+  artifactKey: Guid(b1c154c842d2bee4eb40f268eeba9d4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/TouchIcon.png using Guid(b1c154c842d2bee4eb40f268eeba9d4a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ce2514c59864e82847db0ebc5727ff3') in 0.008034 seconds
+  Import took 0.009809 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000267 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/wood.mat
+  artifactKey: Guid(dcd42bf317c87ea46a24223a01aa037d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/wood.mat using Guid(dcd42bf317c87ea46a24223a01aa037d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b5e556a8e2f3cbc3f80d8c5a1cebdff') in 0.158580 seconds
+  Import took 0.160365 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000238 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/red.mat
+  artifactKey: Guid(f0a5bd563fdce024ba46e1c5e1bfd782) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/red.mat using Guid(f0a5bd563fdce024ba46e1c5e1bfd782) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '807491ada2fe5b56cd83eeb1746d4939') in 0.008882 seconds
+  Import took 0.011167 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000218 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/translucent_purple.mat
+  artifactKey: Guid(5b472665deb5cdf40bbd5e299161a4a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/translucent_purple.mat using Guid(5b472665deb5cdf40bbd5e299161a4a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2bb473ba0b3283bbf94f872aa9424f6c') in 0.009118 seconds
+  Import took 0.010807 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000242 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/button_Icon_mouse.png
+  artifactKey: Guid(1f18593cab6b0514fb45020121190bdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/button_Icon_mouse.png using Guid(1f18593cab6b0514fb45020121190bdb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '86988c17e8b9b0ddecdb2c9e08571311') in 0.011197 seconds
+  Import took 0.012988 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000169 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/blue.mat
+  artifactKey: Guid(aa432e8572681354ab2e9280fe829e84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/blue.mat using Guid(aa432e8572681354ab2e9280fe829e84) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '56f1695c4e75f6034f4de07ed6f69f3d') in 0.010188 seconds
+  Import took 0.011783 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000252 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/translucent_red.mat
+  artifactKey: Guid(b0e164c436511424a84bfc7923ba9223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/translucent_red.mat using Guid(b0e164c436511424a84bfc7923ba9223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3172681a404b09e359abcae2dd859076') in 0.006810 seconds
+  Import took 0.008479 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000167 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Brown.mat
+  artifactKey: Guid(ea02a4f69844a6d4587ef7f224a5fb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Brown.mat using Guid(ea02a4f69844a6d4587ef7f224a5fb76) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ec77b12b137128403dc9e54bac22959') in 0.017337 seconds
+  Import took 0.019203 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000241 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Green.mat
+  artifactKey: Guid(f4aa887b5d5839944a3908f0a5f9ad8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Green.mat using Guid(f4aa887b5d5839944a3908f0a5f9ad8c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '849109f91ae179a82527c411c6ca2c1f') in 0.010179 seconds
+  Import took 0.011853 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/YellowSmooth.mat
+  artifactKey: Guid(6e1d36c4bbd37d54f9ea183e4f5fd656) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/YellowSmooth.mat using Guid(6e1d36c4bbd37d54f9ea183e4f5fd656) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae3f07dc86b80de2a7ba0bdca3248ceb') in 0.009863 seconds
+  Import took 0.011600 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000246 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/YellowSmooth.mat
+  artifactKey: Guid(6e1d36c4bbd37d54f9ea183e4f5fd656) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/YellowSmooth.mat using Guid(6e1d36c4bbd37d54f9ea183e4f5fd656) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae3f07dc86b80de2a7ba0bdca3248ceb') in 0.008764 seconds
+  Import took 0.010960 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 144.537014 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Materials/check.mat
+  artifactKey: Guid(586bda760baaf374580e8bddd4d01eaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Materials/check.mat using Guid(586bda760baaf374580e8bddd4d01eaa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '555a49ed3b3f4de101b04e3253ed193a') in 0.011022 seconds
+  Import took 0.013049 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000227 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_b.mat
+  artifactKey: Guid(e7b45d03d802bd042b2059b29f888d26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_b.mat using Guid(e7b45d03d802bd042b2059b29f888d26) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcac02ae66d90cdae476c5ec036615f0') in 0.008829 seconds
+  Import took 0.010423 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000235 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_a.mat
+  artifactKey: Guid(d4fed77bc08c249448e097078fe79449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_a.mat using Guid(d4fed77bc08c249448e097078fe79449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04332dddd3416f9ebd3b55ab779cfad9') in 0.010419 seconds
+  Import took 0.012159 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000219 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Materials/TouchIcon.mat
+  artifactKey: Guid(41207bfb99c15d44686502b3fa92a32a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Materials/TouchIcon.mat using Guid(41207bfb99c15d44686502b3fa92a32a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8b15e125ec8882001ce566a020930bed') in 0.009106 seconds
+  Import took 0.016425 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.001748 seconds.
+  path: Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_a.mat
+  artifactKey: Guid(d4fed77bc08c249448e097078fe79449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticDemos/Materials/Materials/wood5_a.mat using Guid(d4fed77bc08c249448e097078fe79449) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04332dddd3416f9ebd3b55ab779cfad9') in 0.011216 seconds
+  Import took 0.013044 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 47.861504 seconds.
+  path: Assets/Prefabs
+  artifactKey: Guid(ae4dbddbe0b92ea4889c6d8e753df672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs using Guid(ae4dbddbe0b92ea4889c6d8e753df672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24b1475bcf4e7b4fef5464d418415ad1') in 0.002160 seconds
+  Import took 0.008814 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000559 seconds.
+  path: Assets/Prefabs
+  artifactKey: Guid(ae4dbddbe0b92ea4889c6d8e753df672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs using Guid(ae4dbddbe0b92ea4889c6d8e753df672) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24b1475bcf4e7b4fef5464d418415ad1') in 0.001640 seconds
+  Import took 0.003476 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 444.132802 seconds.
+  path: Assets/Prefabs/VerticalLogic.prefab
+  artifactKey: Guid(61dfa4dcdd93a174b83b8cf0da58d2e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/VerticalLogic.prefab using Guid(61dfa4dcdd93a174b83b8cf0da58d2e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f64dc0f7dfb223ae2adc61b4fe694bee') in 0.013951 seconds
+  Import took 0.016358 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.667315 seconds.
+  path: Assets/Prefabs/HorizontalLogic.prefab
+  artifactKey: Guid(76a7af8393d045f439078cb527bd8fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefabs/HorizontalLogic.prefab using Guid(76a7af8393d045f439078cb527bd8fb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '32c035190f3ea26187bfd4da61e464e7') in 0.010306 seconds
+  Import took 0.013250 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.001525 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.681 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.27 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1140 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 87.8 MB.
+System memory in use after: 87.9 MB.
+
+Unloading 10 unused Assets to reduce memory usage. Loaded Objects now: 1643.
+Total: 1.564200 ms (FindLiveObjects: 0.117900 ms CreateObjectMapping: 0.028300 ms MarkObjects: 1.351700 ms  DeleteObjects: 0.065600 ms)
+
