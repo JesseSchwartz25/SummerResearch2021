@@ -20,7 +20,14 @@ public class HapticGrabber : MonoBehaviour
 	private bool buttonStatus = false;			//!< Is the button currently pressed?
 	private GameObject touching = null;			//!< Reference to the object currently touched
 	private GameObject grabbing = null;			//!< Reference to the object currently grabbed
-	private FixedJoint joint = null;			//!< The Unity physics joint created between the stylus and the object being grabbed.
+	//private FixedJoint joint = null;			//!< The Unity physics joint created between the stylus and the object being grabbed.   -->uncomment this to go back to original code
+    private ConfigurableJoint joint = null;  //comment this out to go back to working original
+
+
+    //added by Jesse for towerVR research:
+    private Rigidbody lastBody = null;
+    public int releaseCount = 0;
+    public int framesToRelease = 3;
 
 
 	//! Automatically called for initialization
@@ -94,6 +101,7 @@ public class HapticGrabber : MonoBehaviour
 			} else
 			{
 				grab();
+                //framesToRelease = 3;
 			}
 		}
 		if (oldButtonStatus == true && newButtonStatus == false)
@@ -101,11 +109,43 @@ public class HapticGrabber : MonoBehaviour
 			if (ButtonActsAsToggle)
 			{
 				//Do Nothing
-			} else
-			{
-				release();
 			}
+            else
+			{
+               // framesToRelease--;
+               // Debug.Log("releasing: " + framesToRelease);
+              //  if (framesToRelease < 1)
+              //  {
+                    //added by jesse to make it so the button must be released for 3 continouos frames in order for an object to be dropped.
+                   // release();
+                   // framesToRelease = 3;
+               }
+          
+           	
 		}
+
+        //Failsafe for when the button falsely thinks it is no longer being held.
+        //Added by Jesse
+
+        if (buttonStatus == false && grabbing != null)
+        {
+            framesToRelease--;
+           // Debug.Log("counting down to release: " + framesToRelease);
+            if (framesToRelease < 1)
+            {
+                //added by jesse to make it so the button must be released for 3 continouos frames in order for an object to be dropped.
+                release();
+                framesToRelease = 3;
+            }
+        }
+        else
+        {
+            framesToRelease = 3;
+        }
+
+
+
+       
 
 		// Make sure haptics is ON if we're grabbing
 		if( grabbing && physicsToggleStyle != PhysicsToggleStyle.none)
@@ -172,7 +212,14 @@ public class HapticGrabber : MonoBehaviour
 			return;
 	
 		touching = that;
-	}
+
+
+        //Added to restrict objects from falling over before they are grabbed for the first time.
+
+        //Only for research 2021, delete for other
+      //  thatBody.constraints = RigidbodyConstraints.None;
+      //  thatBody.constraints = RigidbodyConstraints.FreezeRotation;
+    }
 	void OnCollisionExit(Collision collisionInfo)
 	{
 		Collider other = collisionInfo.collider;
@@ -224,7 +271,7 @@ public class HapticGrabber : MonoBehaviour
 		// It may be PART of a larger physics object.
 		while (body == null)
 		{
-			//Debug.logger.Log("Grabbing : " + grabbing.name + " Has no body. Finding Parent. ");
+			Debug.unityLogger.Log("Grabbing : " + grabbing.name + " Has no body. Finding Parent. ");
 			if (grabbing.transform.parent == null)
 			{
 				grabbing = null;
@@ -240,8 +287,26 @@ public class HapticGrabber : MonoBehaviour
 			body = grabbing.GetComponent<Rigidbody>();
 		}
 
-		joint = (FixedJoint)gameObject.AddComponent(typeof(FixedJoint));
-		joint.connectedBody = body;
+		//joint = (FixedJoint)gameObject.AddComponent(typeof(FixedJoint));
+        joint = (ConfigurableJoint)gameObject.AddComponent(typeof(ConfigurableJoint));
+        joint.connectedBody = body;
+        joint.xMotion = ConfigurableJointMotion.Locked;
+        joint.yMotion = ConfigurableJointMotion.Locked;
+        joint.zMotion = ConfigurableJointMotion.Locked;
+        joint.enableCollision = true;
+		/*joint.angularXMotion = ConfigurableJointMotion.Locked;
+		joint.angularYMotion = ConfigurableJointMotion.Locked;
+		joint.angularZMotion = ConfigurableJointMotion.Locked;*/
+
+
+
+
+		//allow rotation of the rigidbody while it is being grasped
+		//body.constraints = RigidbodyConstraints.None;
+       // body.constraints = RigidbodyConstraints.FreezeRotation;
+       lastBody = body;
+        
+
 	}
 	//! changes the layer of an object, and every child of that object.
 	static void SetLayerRecursively(GameObject go, int layerNumber )
@@ -257,11 +322,28 @@ public class HapticGrabber : MonoBehaviour
 		if( grabbing == null ) //Nothing to release
 			return;
 
+        if(lastBody != null)
+        {
+           // lastBody.constraints = RigidbodyConstraints.FreezeRotation;
+            lastBody = null;
+        }
 
-		Debug.Assert(joint != null);
+        //if statement added by jesse to reduce premature droppage of grasped objects (see bug 2 in the tower project report)
+        if(ButtonActsAsToggle == false && buttonStatus == false)
+        {
+           // Debug.Log("should release now");
+            if (!buttonStatus)
+            {
+             //   Debug.Log("let go of button");
+            }
+        }
+
+        Debug.Assert(joint != null);
 
 		joint.connectedBody = null;
 		Destroy(joint);
+
+      //  Debug.Log("Released");
 
 
 

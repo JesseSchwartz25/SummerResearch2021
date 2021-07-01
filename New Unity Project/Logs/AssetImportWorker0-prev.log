@@ -1,6 +1,6 @@
 Using pre-set license
 Built from '2020.3/staging' branch; Version is '2020.3.8f1 (507919d4fff5) revision 5273881'; Using compiler version '192528614'; Build Type 'Release'
-OS: 'Windows 10 Education; OS build 19042.985; Version 2009; 64bit' Language: 'en' Physical Memory: 16313 MB
+OS: 'Windows 10 Education; OS build 19042.1052; Version 2009; 64bit' Language: 'en' Physical Memory: 16313 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
 
  COMMAND LINE ARGUMENTS:
@@ -15,11 +15,11 @@ C:/Unity Projects/New Unity Project
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-59790
+62067
 Successfully changed project path to: C:/Unity Projects/New Unity Project
 C:/Unity Projects/New Unity Project
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 28.71 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 23.07 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.8f1 (507919d4fff5)
 [Subsystems] Discovering subsystems at path C:/Unity Projects/2020.3.8f1/Editor/Data/Resources/UnitySubsystems
@@ -30,244 +30,76 @@ Direct3D:
     Renderer: NVIDIA GeForce GTX 1080 Ti (ID=0x1b06)
     Vendor:   
     VRAM:     11127 MB
-    Driver:   27.21.14.5671
+    Driver:   27.21.14.6677
 Initialize mono
 Mono path[0] = 'C:/Unity Projects/2020.3.8f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Unity Projects/2020.3.8f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Unity Projects/2020.3.8f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56420
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56804
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Unity Projects/2020.3.8f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.002737 seconds.
+Registered in 0.001936 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 24.91 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 21.79 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.084 seconds
+- Completed reload, in  0.969 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.001311 seconds.
+Registered in 0.001439 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.27 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.800 seconds
+- Completed reload, in  0.735 seconds
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 0.30 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1145 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 83.8 MB.
-System memory in use after: 83.9 MB.
-
-Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1585.
-Total: 1.559600 ms (FindLiveObjects: 0.133000 ms CreateObjectMapping: 0.024700 ms MarkObjects: 1.341700 ms  DeleteObjects: 0.059600 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/PVRUnity/Sample
-  artifactKey: Guid(fbf4bf463202b3f4db56023041814c29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample using Guid(fbf4bf463202b3f4db56023041814c29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cbe28afff034c5e4a07b875a0409385d') in 0.008283 seconds
-  Import took 0.015029 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000267 seconds.
-  path: Assets/PVRUnity/Sample/SimpleVRDemo.unity
-  artifactKey: Guid(f62d95d8a20581f42b493376ca5a61f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/SimpleVRDemo.unity using Guid(f62d95d8a20581f42b493376ca5a61f7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0146d445a0613a0ed3ee61d387c641b2') in 0.013400 seconds
-  Import took 0.014889 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 45.217483 seconds.
-  path: Assets/PVRUnity/Sample/RecenterOnInputDemo.unity
-  artifactKey: Guid(1ab3741083fc05d4793a73b1bd422f8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/RecenterOnInputDemo.unity using Guid(1ab3741083fc05d4793a73b1bd422f8a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8e4316996816414e0ec6c7c2467d812d') in 0.006077 seconds
-  Import took 0.008016 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.154286 seconds.
-  path: Assets/PVRUnity/Sample/RecenterTest.cs
-  artifactKey: Guid(29b43ef060025fb4193a2a501945fe6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/RecenterTest.cs using Guid(29b43ef060025fb4193a2a501945fe6e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d2a690aa76e58da91cad0eb7d13c17b') in 0.028332 seconds
-  Import took 0.035000 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001413 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.650 seconds
-Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.22 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1140 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 83.8 MB.
-System memory in use after: 83.8 MB.
+Unloading 1146 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 85.5 MB.
+System memory in use after: 85.5 MB.
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1588.
-Total: 1.625700 ms (FindLiveObjects: 0.108200 ms CreateObjectMapping: 0.030400 ms MarkObjects: 1.415800 ms  DeleteObjects: 0.070600 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 31.507731 seconds.
-  path: Assets/PVRUnity/Sample/ObjectTrackedDemo.unity
-  artifactKey: Guid(5ad5f2cd634cd54468844723e3f8654a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/ObjectTrackedDemo.unity using Guid(5ad5f2cd634cd54468844723e3f8654a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb46345f55677195bbf96177155eeafb') in 0.012651 seconds
-  Import took 0.019542 seconds .
+Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 1592.
+Total: 2.298400 ms (FindLiveObjects: 0.406200 ms CreateObjectMapping: 0.085800 ms MarkObjects: 1.723700 ms  DeleteObjects: 0.081200 ms)
 
 ========================================================================
 Received Import Request.
-  Time since last request: 77.892517 seconds.
-  path: Assets/PVRUnity/src/PVRPoseTracking.cs
-  artifactKey: Guid(d8de0eb08f67b584f8caf781f18451ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/src/PVRPoseTracking.cs using Guid(d8de0eb08f67b584f8caf781f18451ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fada14cbf1adae64e56110b718cc6a95') in 0.006758 seconds
-  Import took 0.013146 seconds .
+  path: Assets/OpenHaptics/HapticPrefabs/HapticDeviceWithGrabber.prefab
+  artifactKey: Guid(7cdb4dbd1f8f22a4a9a363f1a23b8217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticPrefabs/HapticDeviceWithGrabber.prefab using Guid(7cdb4dbd1f8f22a4a9a363f1a23b8217) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '300ad9e5c8eaf28afab7be0c7f79046f') in 0.101027 seconds
+  Import took 0.103968 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.016914 seconds.
-  path: Assets/PVRUnity/src/PVRPoseTracking.cs
-  artifactKey: Guid(d8de0eb08f67b584f8caf781f18451ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/src/PVRPoseTracking.cs using Guid(d8de0eb08f67b584f8caf781f18451ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fada14cbf1adae64e56110b718cc6a95') in 0.003038 seconds
-  Import took 0.004864 seconds .
+  Time since last request: 4.643181 seconds.
+  path: Assets/OpenHaptics/HapticPrefabs/MorePrefabs/Grabber.prefab
+  artifactKey: Guid(984c931d79a564344be3ecb57785fe28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/OpenHaptics/HapticPrefabs/MorePrefabs/Grabber.prefab using Guid(984c931d79a564344be3ecb57785fe28) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '15c0a88f1faf9e8e62c36d4a05ed9b35') in 0.018498 seconds
+  Import took 0.020812 seconds .
 
 ========================================================================
 Received Prepare
 Registering precompiled user dll's ...
-Registered in 0.001600 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.22 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.636 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.29 ms, found 2 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1140 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 83.8 MB.
-System memory in use after: 83.9 MB.
-
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1591.
-Total: 1.498300 ms (FindLiveObjects: 0.099400 ms CreateObjectMapping: 0.031500 ms MarkObjects: 1.315600 ms  DeleteObjects: 0.051200 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 41.289790 seconds.
-  path: Assets/PVRUnity/Sample/MultiCameraDemo.unity
-  artifactKey: Guid(9cc06191dcf8b1d4a80a02ecbcc1bc70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/MultiCameraDemo.unity using Guid(9cc06191dcf8b1d4a80a02ecbcc1bc70) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '04722486cedfd31a27a532e5688601dd') in 0.013676 seconds
-  Import took 0.020062 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 35.629189 seconds.
-  path: Assets/PVRUnity/Sample/CustomMirrorWindowDemo.unity
-  artifactKey: Guid(dc86df419d98248c5b6f2e093d2b9589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/PVRUnity/Sample/CustomMirrorWindowDemo.unity using Guid(dc86df419d98248c5b6f2e093d2b9589) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00351874bf2019510a9d16f04b93be03') in 0.007299 seconds
-  Import took 0.009461 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 160.018807 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/buttonTestScript.cs
-  artifactKey: Guid(71eb086af0bfbea4399b66aa0518604f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/buttonTestScript.cs using Guid(71eb086af0bfbea4399b66aa0518604f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4532de16be94099193827addeafb23f0') in 0.006831 seconds
-  Import took 0.013851 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 3.168516 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/HapticMouse.cs
-  artifactKey: Guid(effe6e0bde7c2b5458ee1f6821474bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/HapticMouse.cs using Guid(effe6e0bde7c2b5458ee1f6821474bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6798d543f7aa5cd09a2c980e4434a26') in 0.005874 seconds
-  Import took 0.008360 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.023564 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/HapticMouse.cs
-  artifactKey: Guid(effe6e0bde7c2b5458ee1f6821474bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/HapticMouse.cs using Guid(effe6e0bde7c2b5458ee1f6821474bfb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6798d543f7aa5cd09a2c980e4434a26') in 0.003139 seconds
-  Import took 0.005483 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 12.073979 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/VibrationDemoScript.cs
-  artifactKey: Guid(11171da5d16fc8c4fb92f600240b484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/VibrationDemoScript.cs using Guid(11171da5d16fc8c4fb92f600240b484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd01819fe092aacc5addb7f8c8748da0a') in 0.006979 seconds
-  Import took 0.009849 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.000842 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/VibrationDemoScript.cs
-  artifactKey: Guid(11171da5d16fc8c4fb92f600240b484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/VibrationDemoScript.cs using Guid(11171da5d16fc8c4fb92f600240b484b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd01819fe092aacc5addb7f8c8748da0a') in 0.003564 seconds
-  Import took 0.005545 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 1.118353 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/TextureDemoScript.cs
-  artifactKey: Guid(ca86c2d2bde7e5843b617c9d4e285f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/TextureDemoScript.cs using Guid(ca86c2d2bde7e5843b617c9d4e285f59) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eca2a7c4b54950706200a0bbdaa223d9') in 0.011551 seconds
-  Import took 0.014378 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 168.532873 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/BlockPuzzleController.cs
-  artifactKey: Guid(55d60977a69346740960c273ea2dd0e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/BlockPuzzleController.cs using Guid(55d60977a69346740960c273ea2dd0e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12b56d2df18999510c4d48b418f11e53') in 0.006836 seconds
-  Import took 0.010387 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.001031 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/BlockPuzzleController.cs
-  artifactKey: Guid(55d60977a69346740960c273ea2dd0e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/BlockPuzzleController.cs using Guid(55d60977a69346740960c273ea2dd0e0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12b56d2df18999510c4d48b418f11e53') in 0.002770 seconds
-  Import took 0.004571 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001454 seconds.
+Registered in 0.001553 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
 Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.679 seconds
+- Completed reload, in  0.770 seconds
 Platform modules already initialized, skipping
 Refreshing native plugins compatible for Editor in 0.23 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1140 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 83.8 MB.
-System memory in use after: 83.9 MB.
+Unloading 1141 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 88.6 MB.
+System memory in use after: 88.7 MB.
 
-Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1594.
-Total: 1.471700 ms (FindLiveObjects: 0.099000 ms CreateObjectMapping: 0.027200 ms MarkObjects: 1.305400 ms  DeleteObjects: 0.039500 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 168.589491 seconds.
-  path: Assets/OpenHaptics/HapticDemos/DemoScripts/MetersDemo.cs
-  artifactKey: Guid(2e4558d3d9321bb4c83acb068db89d57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/OpenHaptics/HapticDemos/DemoScripts/MetersDemo.cs using Guid(2e4558d3d9321bb4c83acb068db89d57) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbf9541ad33f2914a8482d5fed9b5afd') in 0.009097 seconds
-  Import took 0.015444 seconds .
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 1604.
+Total: 1.512900 ms (FindLiveObjects: 0.121900 ms CreateObjectMapping: 0.025300 ms MarkObjects: 1.320200 ms  DeleteObjects: 0.044700 ms)
 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file
