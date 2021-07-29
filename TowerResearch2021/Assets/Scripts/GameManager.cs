@@ -85,12 +85,15 @@ public class GameManager : MonoBehaviour
             firstBlock = null;
             blockCountToDelete = blockCount;
             blockCount = 0;
-            level = 0;
+            //level = 0;
+            //setting to 0 for debugging
+
             Debug.Log("deleting " + blockCountToDelete + " blocks");
 
             for (int i = 0; i < baseBlock.transform.childCount; i++)
             {
                 baseBlock.transform.GetChild(i).Translate(new Vector3(1000, -1000, 1000), Space.World);
+                baseBlock.transform.GetChild(i).gameObject.layer = 0;
 
                 //this is necesarry because of bug 7 in the doc.
                 //without this, there is a weird interaction with the tactile device if it is touching a block that is deleted.
@@ -106,7 +109,9 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i <towerBlocksInt; i++)
             {
-                addNewBlock();
+                //addNewBlock();
+                Invoke("addNewBlock", 0.1f);
+                //if there are issues
                 level++;
             }
 
@@ -148,9 +153,17 @@ public class GameManager : MonoBehaviour
     //now works with the increased number of blocks in complex towers that have different numbers of blocks
     void deleteOldBlocks()
     {
-        for (int i = 0; i < blockCountToDelete; i++)
-        {    
-            Destroy(baseBlock.transform.GetChild(i).gameObject);
+        //for (int i = 0; i < blockCountToDelete; i++)
+        //{    
+        //    Destroy(baseBlock.transform.GetChild(i).gameObject);
+        //}
+
+        for(int i = 0; i < baseBlock.transform.childCount; i++)
+        {
+            if(baseBlock.transform.GetChild(i).gameObject.layer == 0)
+            {
+                Destroy(baseBlock.transform.GetChild(i).gameObject);
+            }
         }
     }
 
@@ -162,6 +175,61 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+
+
+    float[] generateRandomPos()
+    {
+
+        //setting up the X and Z directions for normalized randomness
+        //use random numbers squared as the percentage to hang of the edge
+
+        float randX = Random.value;
+        float randZ = Random.value;
+
+        float randxNorm = Random.value;
+        float randzNorm = Random.value;
+
+        //squaring to help normalize the distribution. COME BACK TO THIS IF THINGS DONT WORK OUT AS INTENDED!!!!
+
+        randX *= Random.value;
+        randZ *= Random.value;
+        //changed this from squared to another random value to make more interesting distribution
+
+        //randomizes if it moves in the + or - direction
+
+        if (randxNorm >= 0.5f)
+        {
+            randxNorm = 1;
+        }
+        else
+        {
+            randxNorm = -1;
+        }
+
+
+        if (randzNorm >= 0.5f)
+        {
+            randzNorm = 1;
+        }
+        else
+        {
+            randzNorm = -1;
+        }
+
+
+        randX *= randxNorm;
+        randZ *= randzNorm;
+
+        float[] randpos = new float[2];
+        randpos[0] = randX;
+        randpos[1] = randZ;
+
+
+        //definitely not the most efficient, but it gets the job done in O(1) so not something I'm worried about atm.
+
+        return randpos;
+    }
 
     //this script is meant to add a new block to the legal tower.
     void addNewBlock() 
@@ -231,47 +299,9 @@ public class GameManager : MonoBehaviour
                 matcount = 0;
 
 
+            float[] randpos = generateRandomPos();
 
-
-            //setting up the X and Z directions for normalized randomness
-            //use random numbers squared as the percentage to hang of the edge
-
-            float randX = Random.value;
-            float randZ = Random.value;
-
-            float randxNorm = Random.value;
-            float randzNorm = Random.value;
-
-            //squaring to help normalize the distribution. COME BACK TO THIS IF THINGS DONT WORK OUT AS INTENDED!!!!
-
-            randX *= Random.value;
-            randZ *= Random.value;
-            //changed this from squared to another random value to make more interesting distribution
-
-            //randomizes if it moves in the + or - direction
-
-            if (randxNorm >= 0.5f)
-            {
-                randxNorm = 1;
-            }
-            else
-            {
-                randxNorm = -1;
-            }
-
-
-            if (randzNorm >= 0.5f)
-            {
-                randzNorm = 1;
-            }
-            else
-            {
-                randzNorm = -1;
-            }
-
-
-            randX *= randxNorm;
-            randZ *= randzNorm;
+            
 
             bool rotated = false;
             //allowing for rotations of 90 degrees of the blocks, randomly
@@ -293,12 +323,25 @@ public class GameManager : MonoBehaviour
             }
 
 
+
+
+
+
+
+
+            /*
+             * 
+             * This is where we build the blocks. 
+             * 
+             * 
+             */
+
             //instantiating the blocks into the world
             //if this is the first block, it can go anywhere
             if (BlocksOnLastLevel.Count == 0)//(previousBlock == null)
             {
                 //this will collect allof the things that the new block will hit
-                Collider[] colliders = Physics.OverlapBox(baseBlock.transform.position + new Vector3(randX / 2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randZ / 2), toBuildChild.localScale / 2, toBuild.transform.rotation);
+                Collider[] colliders = Physics.OverlapBox(baseBlock.transform.position + new Vector3(randpos[0] / 2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.lossyScale.y * 0.5f, randpos[1] / 2), toBuildChild.lossyScale / 2, toBuild.transform.rotation, 3); //layer mask of 3 for "block"
 
                 foreach (var x in colliders)
                 {
@@ -310,7 +353,24 @@ public class GameManager : MonoBehaviour
                 }
 
 
-                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randX/2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randZ/2), toBuild.transform.rotation);
+                int iters = 0;
+
+                while(colliders.Length != 0)
+                {
+                    randpos = generateRandomPos();
+                    colliders = Physics.OverlapBox(baseBlock.transform.position + new Vector3(randpos[0] / 2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.lossyScale.y * 0.5f, randpos[1] / 2), toBuildChild.lossyScale / 2, toBuild.transform.rotation, 3);
+                    Debug.Log("looped " + iters);
+                    iters++;
+                    if (iters > 5)
+                        break;
+                }
+                if(iters == 5)
+                {
+                    continue;
+                }
+
+
+                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randpos[0]/2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randpos[1]/2), toBuild.transform.rotation);
                 firstBlock = previousBlock;
                 // Debug.Log("Spawning first block at " + previousBlock.transform.position.y);
             }
@@ -320,26 +380,64 @@ public class GameManager : MonoBehaviour
 
                 //equivocate to the scale of the blocks. added the 0.5 for more normalization to make less extreme towers
                 //old version to the right, but I think the new version works pretty well.
-                randX *= 0.8f * prevBlockChild.localScale.x * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                randZ *= 0.8f * prevBlockChild.localScale.z * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                randpos[0] *= 0.8f * prevBlockChild.localScale.x * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                randpos[1] *= 0.8f * prevBlockChild.localScale.z * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
 
 
                 //need the scale to be correct because we are rotating, not altering scale.
                 if (rotated)
                 {
-                    float temp = randX;
-                    randX = randZ;
-                    randZ = temp;
+                    float temp = randpos[0];
+                    randpos[0] = randpos[1];
+                    randpos[1] = temp;
+                }
+
+                Collider[] colliders = Physics.OverlapBox(previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.lossyScale / 2, toBuild.transform.rotation, 3);
+
+                foreach (var x in colliders)
+                {
+                    if (x.gameObject.transform.parent != null)
+                    {
+                        Debug.Log(toBuild.name + " is going to collide with " + x.gameObject.transform.parent.gameObject.name);
+
+                    }
+                }
+
+
+                int iters = 0;
+
+                while (colliders.Length != 0)
+                {
+                    randpos = generateRandomPos();
+                    randpos[0] *= 0.8f * prevBlockChild.localScale.x * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                    randpos[1] *= 0.8f * prevBlockChild.localScale.z * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                    colliders = Physics.OverlapBox(previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.lossyScale / 2, toBuild.transform.rotation, 3);
+                    Debug.Log("looped " + iters);
+                    iters++;
+                    if (iters > 5)
+                        break;
+                }
+                if (iters == 5)
+                {
+                    continue;
                 }
 
                 prevnumber = toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f;
-                previousBlock = Instantiate(toBuild, previousBlock.transform.position + new Vector3(randX, toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randZ), toBuild.transform.rotation);
+                previousBlock = Instantiate(toBuild, previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.rotation);
 
 
 
                 // Debug.Log("spawning block with difference: " + prevnumber + "  " + toBuildChild.localScale.y);
 
             }
+
+
+
+
+
+
+
+
 
 
 
@@ -360,9 +458,7 @@ public class GameManager : MonoBehaviour
             if (addMassScript.getMassStatus() == 0)
             {
                 //allow for new masses
-
-                float randMass = Random.value;
-                if (randMass >= 0.8f)
+                if (Random.value >= 0.8f)
                 {
                     previousBlock.GetComponentInChildren<Renderer>().material = metalMat;
                     previousBlock.GetComponent<Rigidbody>().mass = 2.5f;
@@ -372,9 +468,6 @@ public class GameManager : MonoBehaviour
 
 
             //checking colliders for overlap. That is very bad and causes a lot of issues with the towers
-
-            float movex = Random.Range(-0.05f, 0.05f);
-            float movez = Random.Range(-0.05f, 0.05f);
 
 
             //returns an array of every collider that the spawnwed box is touching/inside of
@@ -434,6 +527,7 @@ public class GameManager : MonoBehaviour
             //}
 
             previousBlock.tag = "CurrentLevel";
+            previousBlock.layer = 3;
 
             //adding the block to the list for the level
             BlocksOnThisLevel.Add(previousBlock);
