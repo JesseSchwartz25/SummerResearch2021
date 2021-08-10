@@ -34,6 +34,17 @@ public class GameManager : MonoBehaviour
     private int towerBlocksInt;
     private int blockCountToDelete;
     private int level;
+    float yLevel;
+    bool readytobuild;
+    Vector3 firstposition;
+
+    public LayerMask mask;
+
+
+    //for the gizmos
+    bool m_HitDetect;
+    Collider m_Collider;
+    RaycastHit m_Hit;
 
     private void Awake()
     {
@@ -63,11 +74,15 @@ public class GameManager : MonoBehaviour
         sleeptimer = 0;
         towerBlocksInt = 6;
         level = 0;
+        yLevel = 0;
+        readytobuild = true;
 
         addMassScript = GameObject.Find("addMassCube").GetComponent<addMass>();
 
         BlocksOnThisLevel = new List<GameObject>();
         BlocksOnLastLevel = new List<GameObject>();
+
+        mask = LayerMask.GetMask("Blocks");
 
     }
 
@@ -85,6 +100,7 @@ public class GameManager : MonoBehaviour
             firstBlock = null;
             blockCountToDelete = blockCount;
             blockCount = 0;
+            yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
             //level = 0;
             //setting to 0 for debugging
 
@@ -94,6 +110,8 @@ public class GameManager : MonoBehaviour
             {
                 baseBlock.transform.GetChild(i).Translate(new Vector3(1000, -1000, 1000), Space.World);
                 baseBlock.transform.GetChild(i).gameObject.layer = 0;
+                //set the blocks to the default layer so that they can be correctly deleted
+
 
                 //this is necesarry because of bug 7 in the doc.
                 //without this, there is a weird interaction with the tactile device if it is touching a block that is deleted.
@@ -107,23 +125,25 @@ public class GameManager : MonoBehaviour
             previousBlock = null;
             prevnumber = 0f;
 
-            for (int i = 0; i <towerBlocksInt; i++)
+            BlocksOnLastLevel.Clear();
+
+            if (readytobuild)
             {
-                //addNewBlock();
-                Invoke("addNewBlock", 0.1f);
-                //if there are issues
-                level++;
+                for (int i = 0; i < towerBlocksInt; i++)
+                {
+                    addNewBlock();
+                    //Invoke("addNewBlock", 0.1f);
+                    //if there are issues
+                    level++;
+                }
+
+                freeRotation = false;
+
+                readytobuild = false;
             }
 
-            freeRotation = false;
 
-            //for(int i = 0; i<RBList.Count; i++)
-            //{
-            //    if(RBList[i] != null)
-            //    {
-            //        Debug.Log(RBList[i].gameObject.name + " is at index " + i);
-            //    }
-            //}
+
         }
 
         if (Input.GetKeyDown(KeyCode.V))
@@ -138,7 +158,7 @@ public class GameManager : MonoBehaviour
 
 
         //keep the RB's awake for the first few seconds of their lives
-        if (freeRotation && sleeptimer < 2)
+        if (freeRotation && sleeptimer < 2 && previousBlock != null)
         {
             previousBlock.GetComponent<Rigidbody>().WakeUp();
             firstBlock.GetComponent<Rigidbody>().WakeUp();
@@ -153,18 +173,15 @@ public class GameManager : MonoBehaviour
     //now works with the increased number of blocks in complex towers that have different numbers of blocks
     void deleteOldBlocks()
     {
-        //for (int i = 0; i < blockCountToDelete; i++)
-        //{    
-        //    Destroy(baseBlock.transform.GetChild(i).gameObject);
-        //}
-
-        for(int i = 0; i < baseBlock.transform.childCount; i++)
+        for (int i = 0; i < baseBlock.transform.childCount; i++)
         {
-            if(baseBlock.transform.GetChild(i).gameObject.layer == 0)
+            if (baseBlock.transform.GetChild(i).gameObject.layer == 0)
             {
                 Destroy(baseBlock.transform.GetChild(i).gameObject);
             }
         }
+
+        readytobuild = true;
     }
 
     void releaseRestrictions()
@@ -232,7 +249,7 @@ public class GameManager : MonoBehaviour
     }
 
     //this script is meant to add a new block to the legal tower.
-    void addNewBlock() 
+    void addNewBlock()
     {
 
 
@@ -240,11 +257,11 @@ public class GameManager : MonoBehaviour
 
 
 
-        int blocksOnLevel = (int) (Random.value * 4) + 1;
+        int blocksOnLevel = (int)(Random.value * 4) + 1;
         //Debug.Log(blocksOnLevel + " random integer calculated");
 
 
-        BlocksOnLastLevel.Clear();
+
 
 
         foreach (var x in BlocksOnThisLevel)
@@ -254,10 +271,10 @@ public class GameManager : MonoBehaviour
         }
 
         BlocksOnThisLevel.Clear();
-       // Debug.Log(BlocksOnLastLevel.Count);
+        // Debug.Log(BlocksOnLastLevel.Count);
 
         //testing with 3 instead of BlocksOnLevel to see if the towers build as they should. change back to blocksOnLevel when it works
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 1; i++)
         {
             //determine if the block will be vertical or horizontal
 
@@ -281,7 +298,7 @@ public class GameManager : MonoBehaviour
                 alternator /= 1.4f;
             }
             //  Debug.Log("pressed space, instantiating " + toBuild.name + " with material " + materials[matcount].name);
-            toBuild.name = "Level" +  level + "_Block" + BlocksOnThisLevel.Count;
+            toBuild.name = "Level" + level + "_Block" + BlocksOnThisLevel.Count;
             blockCount++;
 
             //this transform and the other below are needed to capture the scale of the tower block because they are stored in the children rather than the logic objects which are the parents
@@ -301,7 +318,7 @@ public class GameManager : MonoBehaviour
 
             float[] randpos = generateRandomPos();
 
-            
+
 
             bool rotated = false;
             //allowing for rotations of 90 degrees of the blocks, randomly
@@ -338,41 +355,11 @@ public class GameManager : MonoBehaviour
 
             //instantiating the blocks into the world
             //if this is the first block, it can go anywhere
-            if (BlocksOnLastLevel.Count == 0)//(previousBlock == null)
+            if (previousBlock == null)
             {
-                //this will collect allof the things that the new block will hit
-                Collider[] colliders = Physics.OverlapBox(baseBlock.transform.position + new Vector3(randpos[0] / 2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.lossyScale.y * 0.5f, randpos[1] / 2), toBuildChild.lossyScale / 2, toBuild.transform.rotation, 3); //layer mask of 3 for "block"
-
-                foreach (var x in colliders)
-                {
-                    if (x.gameObject.transform.parent != null)
-                    {
-                        Debug.Log(toBuild.name + " is going to collide with " + x.gameObject.transform.parent.gameObject.name);
-
-                    }
-                }
-
-
-                int iters = 0;
-
-                while(colliders.Length != 0)
-                {
-                    randpos = generateRandomPos();
-                    colliders = Physics.OverlapBox(baseBlock.transform.position + new Vector3(randpos[0] / 2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.lossyScale.y * 0.5f, randpos[1] / 2), toBuildChild.lossyScale / 2, toBuild.transform.rotation, 3);
-                    Debug.Log("looped " + iters);
-                    iters++;
-                    if (iters > 5)
-                        break;
-                }
-                if(iters == 5)
-                {
-                    continue;
-                }
-
-
-                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randpos[0]/2, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randpos[1]/2), toBuild.transform.rotation);
-                firstBlock = previousBlock;
-                // Debug.Log("Spawning first block at " + previousBlock.transform.position.y);
+                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(0, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, 0), toBuild.transform.rotation);
+                firstposition = previousBlock.transform.position;
+                Debug.Log("Spawning first block at " + previousBlock.transform.position.y);
             }
             else
             {
@@ -380,8 +367,8 @@ public class GameManager : MonoBehaviour
 
                 //equivocate to the scale of the blocks. added the 0.5 for more normalization to make less extreme towers
                 //old version to the right, but I think the new version works pretty well.
-                randpos[0] *= 0.8f * prevBlockChild.localScale.x * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                randpos[1] *= 0.8f * prevBlockChild.localScale.z * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                randpos[0] *= prevBlockChild.localScale.x;// * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                randpos[1] *= prevBlockChild.localScale.z;// * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
 
 
                 //need the scale to be correct because we are rotating, not altering scale.
@@ -392,54 +379,119 @@ public class GameManager : MonoBehaviour
                     randpos[1] = temp;
                 }
 
-                Collider[] colliders = Physics.OverlapBox(previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.lossyScale / 2, toBuild.transform.rotation, 3);
 
-                foreach (var x in colliders)
+                //testing totally random values rather than based on a previous block:
+                randpos[0] = Random.Range(-0.5f, 0.5f);
+                randpos[1] = Random.Range(-0.5f, 0.5f);
+                //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
+
+
+
+                //PLACE LOW MOVE UP - NEW ALGORITHM.
+
+                //spawn a block, random position but on the base block
+                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randpos[0], baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randpos[1]), toBuild.transform.rotation);
+                //capturing first block for gizmo testing
+                firstBlock = previousBlock.gameObject;
+
+                //check for overlaps
+                bool overlap = Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.rotation, mask);
+
+                if (!overlap)
                 {
-                    if (x.gameObject.transform.parent != null)
-                    {
-                        Debug.Log(toBuild.name + " is going to collide with " + x.gameObject.transform.parent.gameObject.name);
+                    //no overlap, placed on the baseblock
+                    Debug.Log(previousBlock.name + " placed on the baseblock");
+                }
+                else //box overlaps and must be moved
+                {
+                    //if overlap, raycast up until a block is hit. iterate through the blocks hit until a legal position is found
+                    RaycastHit[] raycastHits = Physics.BoxCastAll(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.up, toBuild.transform.rotation, 100f, mask);
 
+                    //for each in the [], check for legal status. if legal, break the loop and move the box there
+                    foreach (RaycastHit hit in raycastHits)
+                    {
+                        //for gizmo drawing
+                        m_Hit = hit;
+                        //if the hit is the baseblock, continue
+                        if(hit.transform.name == "BaseBlock")
+                        {
+                            Debug.Log("looping on base hit");
+                            continue;
+                        }
+
+
+                        Debug.Log(previousBlock.name + " raycast hit " + hit.transform.name);
+                        Destroy(previousBlock);
+                        previousBlock = Instantiate(toBuild, new Vector3(randpos[0], (toBuildChild.localScale.y * 0.5f) + (hit.transform.GetChild(0).transform.localScale.y * 0.5f) + hit.transform.position.y, randpos[1]), toBuild.transform.rotation);
+                        
+                        //check for new collisions
+                        if(!Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.rotation, mask))
+                        {
+                            break;
+                            //the block is placed legally with no overlaps, we can leave it be
+                        }
                     }
                 }
 
 
-                int iters = 0;
-
-                while (colliders.Length != 0)
-                {
-                    randpos = generateRandomPos();
-                    randpos[0] *= 0.8f * prevBlockChild.localScale.x * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                    randpos[1] *= 0.8f * prevBlockChild.localScale.z * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                    colliders = Physics.OverlapBox(previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.lossyScale / 2, toBuild.transform.rotation, 3);
-                    Debug.Log("looped " + iters);
-                    iters++;
-                    if (iters > 5)
-                        break;
-                }
-                if (iters == 5)
-                {
-                    continue;
-                }
-
-                prevnumber = toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f;
-                previousBlock = Instantiate(toBuild, previousBlock.transform.position + new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f, randpos[1]), toBuild.transform.rotation);
 
 
 
-                // Debug.Log("spawning block with difference: " + prevnumber + "  " + toBuildChild.localScale.y);
 
+
+
+
+
+
+                /////Testing out new idea of spawning low and moving up. return to this if need be, but this doesnt work great...
+
+
+                //  //  prevnumber = toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f;
+
+                //    //took out previousblock.transorm.position, since we are using totally random xz placements and we are lowering the y placement to make sense
+                //   previousBlock = Instantiate(toBuild, new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f + yLevel, randpos[1]), toBuild.transform.rotation);
+                //   // previousBlock = Instantiate(toBuild, new Vector3(randpos[0], yLevel, randpos[1]), toBuild.transform.rotation);
+                //    yLevel+= 4;
+
+                //    //added value to the y position so that it spawns far above where there should be any collisions. Now we have to lower it to the lowest possible point
+
+
+
+                //}
+
+                previousBlock.layer = 6;
+                previousBlock.transform.GetChild(0).gameObject.layer = 6;
+
+
+                //if(Physics.CheckBox(previousBlock.transform.position, toBuildChild.localScale / 2, previousBlock.transform.rotation, mask))
+                //{
+                //    Debug.Log(previousBlock.name + " will overlap another box");
+                //}
+
+                //bool willHit = Physics.BoxCast(previousBlock.transform.position, toBuildChild.localScale / 2, new Vector3(0, -11, 0), out RaycastHit checkdown, previousBlock.transform.rotation, 100f, mask);
+
+                //Debug.DrawLine(previousBlock.transform.position, checkdown.point, Color.red);
+
+
+                //if (willHit)
+                //{
+                //    if (checkdown.rigidbody != null)
+                //    {
+                //        float newYPos = checkdown.collider.gameObject.transform.parent.transform.position.y + toBuildChild.localScale.y * 0.5f + checkdown.collider.gameObject.transform.localScale.y * 0.5f;
+                //      //  Debug.Log(previousBlock.name + " will hit " + checkdown.rigidbody.name);
+                //        previousBlock.transform.position = new Vector3 (previousBlock.transform.position.x, newYPos, previousBlock.transform.position.z);
+                //    }
+
+                //    //previousBlock.transform.Translate(0, -checkdown.distance, 0);
+                //    //Debug.Log(-checkdown.distance + (toBuildChild.transform.localScale.y * 0.5f));
+
+                //}
+
+                //if (Physics.CheckBox(previousBlock.transform.position, toBuildChild.localScale / 2.1f, previousBlock.transform.rotation, mask))
+                //{
+                //    Debug.Log(previousBlock.name + " is overlapping another box");
+                //}
             }
-
-
-
-
-
-
-
-
-
-
 
             previousBlock.transform.SetParent(baseBlock.transform);
 
@@ -465,83 +517,64 @@ public class GameManager : MonoBehaviour
                 }
             }
 
-
-
-            //checking colliders for overlap. That is very bad and causes a lot of issues with the towers
-
-
-            //returns an array of every collider that the spawnwed box is touching/inside of
-            //Collider[] colliders = Physics.OverlapBox(previousBlock.transform.position, previousBlock.transform.GetChild(0).localScale / 2, previousBlock.transform.rotation);
-            
-            //I dont think there is a path forward with this. it has to be done when it is being spawned in otherwise there is just too much math for me
-
-
-            //if (colliders != null)
-            //{
-            //    foreach(var x in colliders)
-            //    {
-            //        if (x.gameObject.transform.parent != null)
-            //        {
-
-            //            //we dont care if it's touching itself, that will happen for every block
-            //            if (!x.gameObject.transform.parent.CompareTag("CurrentBlock") && !x.gameObject.transform.parent.CompareTag("Touchable"))
-            //            {
-                            
-            //                //this means that it is overlapping with a tower block, which is a problem. we need to address this
-            //                Vector3 closestpointonbounds = x.ClosestPointOnBounds(previousBlock.transform.position);
-            //                Vector3 closestpoint = x.ClosestPoint(previousBlock.transform.position);
-
-            //                Debug.Log(previousBlock.name + " is overlapping " + x.gameObject.transform.parent.name + " by " + (previousBlock.transform.position - closestpoint));
-
-            //                //Rigidbody rb = previousBlock.GetComponent<Rigidbody>();
-            //                //Debug.Log(x.bounds + "-" + x.gameObject.transform.parent.transform.position);
-
-            //                //choose to move the block which is already the highest
-            //                GameObject blockToMove = previousBlock;
-
-            //                if(x.gameObject.transform.parent.transform.position.y > previousBlock.transform.position.y)
-            //                {
-            //                    blockToMove = x.gameObject.transform.parent.gameObject;
-            //                }
-
-
-            //               // blockToMove.transform.Translate((previousBlock.transform.position - closestpoint) / 2);
-
-            //            }
-
-
-
-
-            //        }
-            //        else
-            //        {
-            //            //Debug.Log(previousBlock.name + " is overlapping " + x.gameObject.name);
-
-            //            //this means that it is only overlapping with the base/plane, which should not be a problem for our blocks in the tower
-            //        }
-
-            //    }   
-
-            //    //previousBlock.transform.Translate(new Vector3(movex, 0, movez));
-            //    //Destroy(previousBlock);
-            //}
-
             previousBlock.tag = "CurrentLevel";
             previousBlock.layer = 3;
+            previousBlock.transform.GetChild(0).gameObject.layer = 3;
 
             //adding the block to the list for the level
             BlocksOnThisLevel.Add(previousBlock);
 
+
+
+
+
+            //what if instead of starting way high up and moving down, essentially creating a height based tower, we start at the bottom and move up, then creating a depth based tower that should be closer to what we are looking for!
+            /*
+             *instantiate block at the base
+             * if it overlaps
+             *  destroy
+             *  send a raycast upwards
+             *  reinstantiate at the new position
+             *  check for collisions
+             * 
+             */
+
+
+
+
         }
 
-
-
-
-
-
-
-
     }
+
+
+    //void OnDrawGizmos()
+    //{
+
+
+
+
+    //    if (previousBlock != null)
+    //    {
+           
+
+    //        Gizmos.color = Color.red;
+
+            
+    //            //Draw a Ray forward from GameObject toward the hit
+
+    //        Gizmos.DrawRay(previousBlock.transform.position, previousBlock.transform.up);
+    //            //Draw a cube that extends to where the hit exists
+    //            //this doesnt accomodate for rotaion, but not the biggest deal
+    //        Gizmos.DrawWireCube(m_Hit.transform.position, m_Hit.transform.GetChild(0).transform.localScale);
+
+    //        Gizmos.color = Color.blue;
+    //        Gizmos.DrawWireCube(firstposition, firstBlock.transform.GetChild(0).transform.localScale);
+            
+
+    //    }
+    //}
+
+
 
 
 

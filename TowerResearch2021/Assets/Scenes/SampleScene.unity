@@ -1187,7 +1187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484257034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.516324, y: 0.35, z: -2.5827503}
+  m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 4.9008, y: 4.9008, z: 4.9008}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 1622454126}
   - component: {fileID: 1622454125}
   - component: {fileID: 1622454129}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base
   m_TagString: Touchable
   m_Icon: {fileID: 0}
