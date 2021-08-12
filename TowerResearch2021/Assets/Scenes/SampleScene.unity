@@ -498,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabbed: 1
   starttag: 
+  hitsList: []
 --- !u!1 &636948601
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,8 +813,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 89390a3f6ae39854385f03628ce0a687, type: 2}
   - {fileID: 2100000, guid: 5c528221f8cdfee4488c0613406d194d, type: 2}
   metalMat: {fileID: 2100000, guid: 9fe6a58f07a77de40b277911bba80750, type: 2}
+  transparent: {fileID: 2100000, guid: cf0731f8f183fa14fa91a668066412b9, type: 2}
   addMassScript: {fileID: 0}
   sleeptimer: 0
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!4 &773663889
 Transform:
   m_ObjectHideFlags: 0
@@ -909,6 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grabbed: 1
   starttag: 
+  hitsList: []
 --- !u!1001 &1098940716
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1650,6 +1656,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1545823226155146056, guid: 76a7af8393d045f439078cb527bd8fb0, type: 3}
+      propertyPath: m_Drag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545823226155146056, guid: 76a7af8393d045f439078cb527bd8fb0, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1545823226155146056, guid: 76a7af8393d045f439078cb527bd8fb0, type: 3}
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
@@ -1790,5 +1804,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 99099c5e8f0196a488649412867c38d2, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1953370236, guid: 629896855b873a641ab9d4c684641e03, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 629896855b873a641ab9d4c684641e03, type: 3}

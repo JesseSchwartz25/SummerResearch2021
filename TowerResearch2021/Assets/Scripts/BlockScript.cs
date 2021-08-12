@@ -10,6 +10,8 @@ public class BlockScript : MonoBehaviour
     private Rigidbody rb = null;
     public bool grabbed = false;
     public string starttag = null;
+    public List<string> hitsList;
+
 
 
 
@@ -19,7 +21,7 @@ public class BlockScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeRotation;
         rb.constraints = RigidbodyConstraints.FreezeAll;
         starttag = this.gameObject.tag;
-
+        hitsList = null;
         GameManager.RBList.Add(rb);
     }
 

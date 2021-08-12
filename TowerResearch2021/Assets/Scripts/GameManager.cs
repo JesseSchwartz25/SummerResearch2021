@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     //these are so the blocks look differnt from each other in the tower, they are loaded in the unity inspector
     public Material[] materials;
     public Material metalMat;
+    public Material transparent;
     private int matcount;
     private int blockCount;
     private float alternator = 0.5f;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
     //for the gizmos
     bool m_HitDetect;
     Collider m_Collider;
-    RaycastHit m_Hit;
+    RaycastHit[] m_Hits;
 
     private void Awake()
     {
@@ -161,7 +162,7 @@ public class GameManager : MonoBehaviour
         if (freeRotation && sleeptimer < 2 && previousBlock != null)
         {
             previousBlock.GetComponent<Rigidbody>().WakeUp();
-            firstBlock.GetComponent<Rigidbody>().WakeUp();
+            //firstBlock.GetComponent<Rigidbody>().WakeUp();
             sleeptimer += Time.deltaTime;
         }
 
@@ -306,6 +307,9 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
+
             //materials so that we can see the different blocks more easily
             Material prevMat = toBuild.GetComponentInChildren<Renderer>().material;
 
@@ -359,16 +363,16 @@ public class GameManager : MonoBehaviour
             {
                 previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(0, baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, 0), toBuild.transform.rotation);
                 firstposition = previousBlock.transform.position;
-                Debug.Log("Spawning first block at " + previousBlock.transform.position.y);
+                //Debug.Log("Spawning first block at " + previousBlock.transform.position.y);
             }
             else
             {
-                Transform prevBlockChild = previousBlock.transform.GetChild(0);
+                
 
                 //equivocate to the scale of the blocks. added the 0.5 for more normalization to make less extreme towers
                 //old version to the right, but I think the new version works pretty well.
-                randpos[0] *= prevBlockChild.localScale.x;// * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                randpos[1] *= prevBlockChild.localScale.z;// * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                //randpos[0] *= prevBlockChild.localScale.x;// * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
+                //randpos[1] *= prevBlockChild.localScale.z;// * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
 
 
                 //need the scale to be correct because we are rotating, not altering scale.
@@ -381,8 +385,8 @@ public class GameManager : MonoBehaviour
 
 
                 //testing totally random values rather than based on a previous block:
-                randpos[0] = Random.Range(-0.5f, 0.5f);
-                randpos[1] = Random.Range(-0.5f, 0.5f);
+                randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
+                randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
                 //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
 
 
@@ -390,31 +394,47 @@ public class GameManager : MonoBehaviour
                 //PLACE LOW MOVE UP - NEW ALGORITHM.
 
                 //spawn a block, random position but on the base block
-                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randpos[0], baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f, randpos[1]), toBuild.transform.rotation);
+                previousBlock = Instantiate(toBuild, baseBlock.transform.position + new Vector3(randpos[0], baseBlock.transform.localScale.y * 0.5f + toBuildChild.localScale.y * 0.5f + 0.002f, randpos[1]), toBuild.transform.rotation);
+                Transform prevBlockChild = previousBlock.transform.GetChild(0);
+                //contact offset
+                previousBlock.GetComponentInChildren<Collider>().contactOffset = 0.001f;
                 //capturing first block for gizmo testing
                 firstBlock = previousBlock.gameObject;
 
                 //check for overlaps
-                bool overlap = Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.rotation, mask);
+                bool overlap = Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, Quaternion.identity, mask);
+                
 
                 if (!overlap)
                 {
                     //no overlap, placed on the baseblock
                     Debug.Log(previousBlock.name + " placed on the baseblock");
+                    
                 }
                 else //box overlaps and must be moved
                 {
                     //if overlap, raycast up until a block is hit. iterate through the blocks hit until a legal position is found
-                    RaycastHit[] raycastHits = Physics.BoxCastAll(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.up, toBuild.transform.rotation, 100f, mask);
+                    RaycastHit[] raycastHits = Physics.BoxCastAll(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, previousBlock.transform.up, Quaternion.identity, 100f, mask);
+
+                    //for gizmo drawing
+                    m_Hits = raycastHits;
+                    //List<string> outhits = new List<string>();// previousBlock.GetComponent<BlockScript>().hitsList;
 
                     //for each in the [], check for legal status. if legal, break the loop and move the box there
                     foreach (RaycastHit hit in raycastHits)
                     {
-                        //for gizmo drawing
-                        m_Hit = hit;
+
+
+
+
+                        //for reference list
+                        //outhits.Add(hit.transform.gameObject.name);
+                        previousBlock.GetComponent<BlockScript>().hitsList.Add(hit.transform.gameObject.name);
+
                         //if the hit is the baseblock, continue
                         if(hit.transform.name == "BaseBlock")
                         {
+                            //this should never come up because of the layer mask
                             Debug.Log("looping on base hit");
                             continue;
                         }
@@ -422,14 +442,27 @@ public class GameManager : MonoBehaviour
 
                         Debug.Log(previousBlock.name + " raycast hit " + hit.transform.name);
                         Destroy(previousBlock);
+                        //prevBlockChild.GetComponent<Renderer>().material = transparent;
                         previousBlock = Instantiate(toBuild, new Vector3(randpos[0], (toBuildChild.localScale.y * 0.5f) + (hit.transform.GetChild(0).transform.localScale.y * 0.5f) + hit.transform.position.y, randpos[1]), toBuild.transform.rotation);
-                        
+
+                        //dont check for collisions on the block just placed on
+                        hit.transform.gameObject.layer = 6;
+                        hit.transform.GetChild(0).gameObject.layer = 6;
+
                         //check for new collisions
-                        if(!Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, toBuild.transform.rotation, mask))
+                        if (!Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, Quaternion.identity, mask))
                         {
+                           // previousBlock.GetComponent<BlockScript>().hitsList = outhits;
+                            Debug.Log("block placed");
+                            //reallow for the hit to be checked for hits
+                            hit.transform.gameObject.layer = 3;
+                            hit.transform.GetChild(0).gameObject.layer = 3;
                             break;
                             //the block is placed legally with no overlaps, we can leave it be
                         }
+                        //allow the hit to be checked for collisions
+                        hit.transform.gameObject.layer = 3;
+                        hit.transform.GetChild(0).gameObject.layer = 3;
                     }
                 }
 
@@ -547,32 +580,40 @@ public class GameManager : MonoBehaviour
     }
 
 
-    //void OnDrawGizmos()
-    //{
+    void OnDrawGizmos()
+    {
 
 
 
 
-    //    if (previousBlock != null)
-    //    {
-           
+        //if (previousBlock != null)
+        //{
 
-    //        Gizmos.color = Color.red;
 
-            
-    //            //Draw a Ray forward from GameObject toward the hit
+        //    Gizmos.color = Color.red;
 
-    //        Gizmos.DrawRay(previousBlock.transform.position, previousBlock.transform.up);
-    //            //Draw a cube that extends to where the hit exists
-    //            //this doesnt accomodate for rotaion, but not the biggest deal
-    //        Gizmos.DrawWireCube(m_Hit.transform.position, m_Hit.transform.GetChild(0).transform.localScale);
 
-    //        Gizmos.color = Color.blue;
-    //        Gizmos.DrawWireCube(firstposition, firstBlock.transform.GetChild(0).transform.localScale);
-            
+        //    //Draw a Ray forward from GameObject toward the hit
 
-    //    }
-    //}
+        //    foreach(RaycastHit hit in m_Hits)
+        //    {
+        //        Gizmos.DrawWireCube(hit.collider.bounds.center, hit.collider.bounds.size);
+                
+        //    }
+
+
+
+            //Gizmos.DrawRay(previousBlock.transform.position, previousBlock.transform.up);
+            ////Draw a cube that extends to where the hit exists
+            ////this doesnt accomodate for rotaion, but not the biggest deal
+            //Gizmos.DrawWireCube(m_Hit.transform.position, m_Hit.transform.GetChild(0).transform.localScale);
+
+            //Gizmos.color = Color.blue;
+            //Gizmos.DrawWireCube(firstposition, firstBlock.transform.GetChild(0).transform.localScale);
+
+
+        //}
+    }
 
 
 
