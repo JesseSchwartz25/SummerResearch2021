@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private int towerBlocksInt;
     private int blockCountToDelete;
     private int level;
+    public int seed;
     float yLevel;
     bool readytobuild;
     Vector3 firstposition;
@@ -77,6 +78,7 @@ public class GameManager : MonoBehaviour
         level = 0;
         yLevel = 0;
         readytobuild = true;
+        seed = 0;
 
         addMassScript = GameObject.Find("addMassCube").GetComponent<addMass>();
 
@@ -93,6 +95,8 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //on pressing space, add a new block to the tower, legally
+
+
 
 
             //testing having the grabber drop all items on space being pressed. did not fix bug 7
@@ -130,6 +134,11 @@ public class GameManager : MonoBehaviour
 
             if (readytobuild)
             {
+                //set the random seed
+                //this is the best spot for it in my short testing.
+                Random.InitState(seed);
+                seed++;
+
                 for (int i = 0; i < towerBlocksInt; i++)
                 {
                     addNewBlock();
@@ -385,6 +394,8 @@ public class GameManager : MonoBehaviour
 
 
                 //testing totally random values rather than based on a previous block:
+
+
                 randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
                 randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
                 //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
