@@ -43,6 +43,13 @@ public class GameManager : MonoBehaviour
     public LayerMask mask;
 
 
+    //for tower positioning:
+    public bool fallLeft;
+    public bool fallRight;
+    public bool fallForward;
+    public bool fallBackward;
+
+
     //for the gizmos
     bool m_HitDetect;
     Collider m_Collider;
@@ -74,11 +81,12 @@ public class GameManager : MonoBehaviour
         blockCount = 0;
         freeRotation = false;
         sleeptimer = 0;
-        towerBlocksInt = 6;
+        towerBlocksInt = 5;
         level = 0;
         yLevel = 0;
         readytobuild = true;
         seed = 0;
+        fallLeft = true;
 
         addMassScript = GameObject.Find("addMassCube").GetComponent<addMass>();
 
@@ -86,6 +94,8 @@ public class GameManager : MonoBehaviour
         BlocksOnLastLevel = new List<GameObject>();
 
         mask = LayerMask.GetMask("Blocks");
+
+
 
     }
 
@@ -106,7 +116,6 @@ public class GameManager : MonoBehaviour
             blockCountToDelete = blockCount;
             blockCount = 0;
             yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
-            //level = 0;
             //setting to 0 for debugging
 
             Debug.Log("deleting " + blockCountToDelete + " blocks");
@@ -123,8 +132,8 @@ public class GameManager : MonoBehaviour
                 Invoke("deleteOldBlocks", 0.05f);
 
                 BlocksOnThisLevel.Clear();
-
-
+                level = 0; //this seems to work, probably because i adjusted the system that blocks are deleted
+               
             }
 
             previousBlock = null;
@@ -284,7 +293,7 @@ public class GameManager : MonoBehaviour
         // Debug.Log(BlocksOnLastLevel.Count);
 
         //testing with 3 instead of BlocksOnLevel to see if the towers build as they should. change back to blocksOnLevel when it works
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 2; i++)
         {
             //determine if the block will be vertical or horizontal
 
@@ -396,9 +405,33 @@ public class GameManager : MonoBehaviour
                 //testing totally random values rather than based on a previous block:
 
 
-                randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
-                randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(.4f, 1);
+                randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
+                randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
                 //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
+
+
+
+                //shift blocks according to which direction they should be falling:
+                if (fallLeft)
+                {
+                    randpos[0] = shiftLeft(randpos[0]);
+                }
+                else if (fallRight)
+                {
+                    randpos[0] = shiftRight(randpos[0]);
+                }
+                else if (fallForward)
+                {
+                    randpos[1] = shiftForward(randpos[1]);
+                }
+                else if (fallBackward)
+                {
+                    randpos[1] = shiftBackward(randpos[1]);
+                }
+                else
+                {
+                    randpos = steady(randpos);
+                }
 
 
 
@@ -480,10 +513,14 @@ public class GameManager : MonoBehaviour
 
 
 
+                previousBlock.layer = 6;
+                previousBlock.transform.GetChild(0).gameObject.layer = 6;
 
 
 
 
+
+                //I think all of this is outdated:
 
 
 
@@ -503,8 +540,6 @@ public class GameManager : MonoBehaviour
 
                 //}
 
-                previousBlock.layer = 6;
-                previousBlock.transform.GetChild(0).gameObject.layer = 6;
 
 
                 //if(Physics.CheckBox(previousBlock.transform.position, toBuildChild.localScale / 2, previousBlock.transform.rotation, mask))
@@ -583,6 +618,8 @@ public class GameManager : MonoBehaviour
              * 
              */
 
+     
+
 
 
 
@@ -590,6 +627,31 @@ public class GameManager : MonoBehaviour
 
     }
 
+    float shiftLeft(float xVal)
+    {
+        return xVal + 0.05f * level;
+    }
+
+    float shiftRight(float xVal)
+    {
+        return xVal - 0.03f * level; ;
+    }
+
+    float shiftForward(float zVal)
+    {
+        return zVal + 0.03f * level; ;     
+    }
+
+    float shiftBackward(float zVal)
+    {
+        return zVal - 0.03f * level; ;
+    }
+    float[] steady(float[] randPos)
+    {
+        randPos[0] *= (1.3f - (level / 10.0f));//0.9f;
+        randPos[1] *= (1.3f - (level / 10.0f)); ;
+        return randPos;
+    }
 
     void OnDrawGizmos()
     {
