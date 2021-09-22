@@ -12,6 +12,9 @@ TagManager:
   - LastLevel
   - CurrentLevel
   - CurrentBlock
+  - Start
+  - Other
+  - Button
   layers:
   - Default
   - TransparentFX
