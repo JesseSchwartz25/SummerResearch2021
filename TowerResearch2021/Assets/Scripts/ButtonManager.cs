@@ -28,6 +28,7 @@ public class ButtonManager : MonoBehaviour
     public HapticGrabber hapticGrabber;
     private bool grabberButtonLast;
     private bool grabberButtonThis;
+    bool spin;
     
 
 
@@ -45,7 +46,8 @@ public class ButtonManager : MonoBehaviour
         grabberButtonThis = hapticGrabber.getButtonStatus();
         buttonAnimator = startButton.GetComponent<Animator>();
         startButtonText = startButton.GetComponentInChildren<TMP_Text>();
-
+        spin = false;
+        buttonReset();
     }
 
     // Update is called once per frame
@@ -63,7 +65,7 @@ public class ButtonManager : MonoBehaviour
 
         Debug.DrawRay(Grabber.transform.position, -Grabber.transform.forward);
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 1.5f))
         {
             if (hit.collider == startButton.GetComponent<Collider>()) //ray is hitting this button
             {
@@ -92,7 +94,7 @@ public class ButtonManager : MonoBehaviour
                     state = 2;
 
                 }
-                else if (!startButtonManager.buttonPressed && newGrabberRelease() || state == 0 && !grabberButtonThis) //button is normal but hovered --> go hover. makes sure we do not highlight two buttons at the same time
+                else if (!startButtonManager.buttonPressed && newGrabberRelease() || (state == 0 && !grabberButtonThis)) //button is normal but hovered --> go hover. makes sure we do not highlight two buttons at the same time
                 {
                     buttonAnimator.SetTrigger(startButton.animationTriggers.highlightedTrigger);
                     state = 1;
@@ -109,8 +111,9 @@ public class ButtonManager : MonoBehaviour
             }
 
             else //this is here in case we are hovering over another button while we release from the first button
+            //raycast hitting something else
             {
-                if (!startButtonManager.buttonPressed && state == 1) //button is not pressed, not hovered, go normal
+                if (state == 1) //button is not pressed, not hovered, go normal
                 {
                     buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
                     state = 0;
@@ -137,7 +140,7 @@ public class ButtonManager : MonoBehaviour
                 }
             }
 
-        }
+        }//no raycasthit
         else //this is for releasing when we are not hovering a different button
         {
             if (!startButtonManager.buttonPressed && state == 1) //button is not pressed, not hovered, go normal
@@ -157,6 +160,7 @@ public class ButtonManager : MonoBehaviour
                 buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
                 state = 3;
                 startButton.onClick.Invoke();
+                
             }
             if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
             {
@@ -164,10 +168,27 @@ public class ButtonManager : MonoBehaviour
                 state = 0;
             }
         }
+        if(state == 0)
+        {
+            //buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+        }
 
 
 
-        startButtonText.text = "" + state;
+        //startButtonText.text = "" + state;
+
+    }
+
+    public void buttonReset()
+    {
+        buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+        state = 0;
+        buttonPressed = false;
+        buttonAnimator.ResetTrigger("Highlighted");
+        buttonAnimator.ResetTrigger("Selected");
+        buttonAnimator.ResetTrigger("Disabled");
+        buttonAnimator.SetTrigger("Normal");
+        buttonAnimator.ResetTrigger("Normal");
 
     }
 
@@ -177,7 +198,7 @@ public class ButtonManager : MonoBehaviour
         return grabberButtonThis && !grabberButtonLast;
     }
 
-    bool newGrabberRelease()
+    public bool newGrabberRelease()
     {
         return !grabberButtonThis && grabberButtonLast;
     }
@@ -199,6 +220,15 @@ public class ButtonManager : MonoBehaviour
     public void testClicked2()
     {
         Debug.Log("Me 2!");
+    }
+
+    public void spinClicked()
+    {
+        Animator baseAnimator = GameObject.Find("Base").GetComponent<Animator>();
+        baseAnimator.SetTrigger("Spin");
+
+        Debug.Log("test");
+
     }
 
 }

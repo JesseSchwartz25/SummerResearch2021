@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
         blockCount = 0;
         freeRotation = false;
         sleeptimer = 0;
-        towerBlocksInt = 5;
+        towerBlocksInt = 3;
         level = 0;
         yLevel = 0;
         readytobuild = true;
@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviour
         {
             //on pressing space, add a new block to the tower, legally
 
-
+            
 
 
             //testing having the grabber drop all items on space being pressed. did not fix bug 7

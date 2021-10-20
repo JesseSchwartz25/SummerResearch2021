@@ -59,6 +59,8 @@ public class HapticGrabber : MonoBehaviour
         return buttonStatus;
     }
 
+
+
 	void disableUnityCollisions()
 	{
 		GameObject[] touchableObjects;
