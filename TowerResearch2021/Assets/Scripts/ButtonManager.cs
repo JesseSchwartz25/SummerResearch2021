@@ -66,11 +66,15 @@ public class ButtonManager : MonoBehaviour
 
         Debug.DrawRay(Grabber.transform.position, -Grabber.transform.forward);
 
+
+        //implemented the improved code for buttons. commented out code seems to be obsolete but give it a minute to make sure we really don't need it anymore
+
+
         if (Physics.Raycast(ray, out hit, 1.5f, LayerMask.GetMask("UI")))
         {
 
 
-            if(hit.collider == startButton.GetComponent<Collider>())
+            if(hit.collider == startButton.GetComponent<Collider>() && startButton.IsInteractable())
             {
                 startButton.OnPointerEnter(null);
                 if (Grabber.GetComponent<HapticGrabber>().getButtonStatus())
@@ -169,6 +173,8 @@ public class ButtonManager : MonoBehaviour
         }//no raycasthit
         else //this is for releasing when we are not hovering a different button
         {
+            startButton.OnPointerExit(null);
+            startButton.OnDeselect(null);
             //if (!startButtonManager.buttonPressed && state == 1) //button is not pressed, not hovered, go normal
             //{
             //    buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
@@ -186,7 +192,7 @@ public class ButtonManager : MonoBehaviour
             //    buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
             //    state = 3;
             //    startButton.onClick.Invoke();
-                
+
             //}
             //if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
             //{

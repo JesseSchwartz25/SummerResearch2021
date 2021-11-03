@@ -52,28 +52,31 @@ public class ZoneScript : MonoBehaviour
 
                         //Debug.Log("hit: " + i.collider.name);
                         Button thisButton = i.collider.GetComponent<Button>();
-
-
-                        for(int j = 0; j < buttons.Length; j++)
+                        if (thisButton.IsInteractable())
                         {
-                            if (thisButton != buttons[j])
+                            for (int j = 0; j < buttons.Length; j++)
                             {
-                                buttons[j].OnDeselect(null);
-                            }
-                            else
-                            {
-                                if(ZoneChoice != j)
+                                if (thisButton != buttons[j])
                                 {
-                                    ZoneChoice = j;
-                                    thisButton.OnSelect(null);
-                                    thisButton.onClick.Invoke();
+                                    buttons[j].OnDeselect(null);
+                                }
+                                else
+                                {
+                                    if (ZoneChoice != j)
+                                    {
+                                        ZoneChoice = j;
+                                        thisButton.OnSelect(null);
+                                        thisButton.onClick.Invoke();
+                                    }
+
                                 }
 
-                            }
 
-                            
+                            }
+                            break;
                         }
-                        break;
+
+                        
                     }
 
 
