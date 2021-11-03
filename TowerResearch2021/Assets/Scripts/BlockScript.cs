@@ -22,7 +22,7 @@ public class BlockScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeAll;
         starttag = this.gameObject.tag;
         hitsList = null;
-        GameManager.RBList.Add(rb);
+        //GameManager.RBList.Add(rb);
     }
 
     // Update is called once per frame

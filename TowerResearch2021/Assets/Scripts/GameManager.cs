@@ -55,10 +55,27 @@ public class GameManager : MonoBehaviour
     Collider m_Collider;
     RaycastHit[] m_Hits;
 
+
+
+
+    //singleton
+    public static GameManager instance;
     private void Awake()
     {
-        RBList = new List<Rigidbody>();
+        // The Singleton pattern.
+        if (instance != null && instance != this)
+        {
+            // Enforce that there is only one GameManager.
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
+
+
 
     void Start()
     {
@@ -106,62 +123,7 @@ public class GameManager : MonoBehaviour
         {
             //on pressing space, add a new block to the tower, legally
 
-            
-
-
-            //testing having the grabber drop all items on space being pressed. did not fix bug 7
-            //grabber.transform.GetChild(1).gameObject.GetComponent<HapticGrabber>().release();
-
-            firstBlock = null;
-            blockCountToDelete = blockCount;
-            blockCount = 0;
-            yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
-            //setting to 0 for debugging
-
-            Debug.Log("deleting " + blockCountToDelete + " blocks");
-
-            for (int i = 0; i < baseBlock.transform.childCount; i++)
-            {
-                baseBlock.transform.GetChild(i).Translate(new Vector3(1000, -1000, 1000), Space.World);
-                baseBlock.transform.GetChild(i).gameObject.layer = 0;
-                //set the blocks to the default layer so that they can be correctly deleted
-
-
-                //this is necesarry because of bug 7 in the doc.
-                //without this, there is a weird interaction with the tactile device if it is touching a block that is deleted.
-                Invoke("deleteOldBlocks", 0.05f);
-
-                BlocksOnThisLevel.Clear();
-                level = 0; //this seems to work, probably because i adjusted the system that blocks are deleted
-               
-            }
-
-            previousBlock = null;
-            prevnumber = 0f;
-
-            BlocksOnLastLevel.Clear();
-
-            if (readytobuild)
-            {
-                //set the random seed
-                //this is the best spot for it in my short testing.
-                Random.InitState(seed);
-                seed++;
-
-                for (int i = 0; i < towerBlocksInt; i++)
-                {
-                    addNewBlock();
-                    //Invoke("addNewBlock", 0.1f);
-                    //if there are issues
-                    level++;
-                }
-
-                freeRotation = false;
-
-                readytobuild = false;
-            }
-
-
+            buildTower();
 
         }
 
@@ -170,9 +132,7 @@ public class GameManager : MonoBehaviour
             //releasing the restrictions so that the tower can fall
             //sleeptimer is so that the rigidbodies do not fall asleep prematurely
 
-            releaseRestrictions();
-            freeRotation = true;
-            sleeptimer = 0;
+            towerFall();
         }
 
 
@@ -520,56 +480,7 @@ public class GameManager : MonoBehaviour
 
 
 
-                //I think all of this is outdated:
-
-
-
-                /////Testing out new idea of spawning low and moving up. return to this if need be, but this doesnt work great...
-
-
-                //  //  prevnumber = toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f;
-
-                //    //took out previousblock.transorm.position, since we are using totally random xz placements and we are lowering the y placement to make sense
-                //   previousBlock = Instantiate(toBuild, new Vector3(randpos[0], toBuildChild.localScale.y * 0.5f + prevBlockChild.transform.localScale.y * 0.5f + yLevel, randpos[1]), toBuild.transform.rotation);
-                //   // previousBlock = Instantiate(toBuild, new Vector3(randpos[0], yLevel, randpos[1]), toBuild.transform.rotation);
-                //    yLevel+= 4;
-
-                //    //added value to the y position so that it spawns far above where there should be any collisions. Now we have to lower it to the lowest possible point
-
-
-
-                //}
-
-
-
-                //if(Physics.CheckBox(previousBlock.transform.position, toBuildChild.localScale / 2, previousBlock.transform.rotation, mask))
-                //{
-                //    Debug.Log(previousBlock.name + " will overlap another box");
-                //}
-
-                //bool willHit = Physics.BoxCast(previousBlock.transform.position, toBuildChild.localScale / 2, new Vector3(0, -11, 0), out RaycastHit checkdown, previousBlock.transform.rotation, 100f, mask);
-
-                //Debug.DrawLine(previousBlock.transform.position, checkdown.point, Color.red);
-
-
-                //if (willHit)
-                //{
-                //    if (checkdown.rigidbody != null)
-                //    {
-                //        float newYPos = checkdown.collider.gameObject.transform.parent.transform.position.y + toBuildChild.localScale.y * 0.5f + checkdown.collider.gameObject.transform.localScale.y * 0.5f;
-                //      //  Debug.Log(previousBlock.name + " will hit " + checkdown.rigidbody.name);
-                //        previousBlock.transform.position = new Vector3 (previousBlock.transform.position.x, newYPos, previousBlock.transform.position.z);
-                //    }
-
-                //    //previousBlock.transform.Translate(0, -checkdown.distance, 0);
-                //    //Debug.Log(-checkdown.distance + (toBuildChild.transform.localScale.y * 0.5f));
-
-                //}
-
-                //if (Physics.CheckBox(previousBlock.transform.position, toBuildChild.localScale / 2.1f, previousBlock.transform.rotation, mask))
-                //{
-                //    Debug.Log(previousBlock.name + " is overlapping another box");
-                //}
+                
             }
 
             previousBlock.transform.SetParent(baseBlock.transform);
@@ -686,6 +597,72 @@ public class GameManager : MonoBehaviour
 
 
         //}
+    }
+
+    public void buildTower()
+    {
+
+
+        //testing having the grabber drop all items on space being pressed. did not fix bug 7
+        //grabber.transform.GetChild(1).gameObject.GetComponent<HapticGrabber>().release();
+
+        firstBlock = null;
+        blockCountToDelete = blockCount;
+        blockCount = 0;
+        yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
+        //setting to 0 for debugging
+
+        Debug.Log("deleting " + blockCountToDelete + " blocks");
+
+        for (int i = 0; i < baseBlock.transform.childCount; i++)
+        {
+            baseBlock.transform.GetChild(i).Translate(new Vector3(1000, -1000, 1000), Space.World);
+            baseBlock.transform.GetChild(i).gameObject.layer = 0;
+            //set the blocks to the default layer so that they can be correctly deleted
+
+
+            //this is necesarry because of bug 7 in the doc.
+            //without this, there is a weird interaction with the tactile device if it is touching a block that is deleted.
+            Invoke("deleteOldBlocks", 0.05f);
+
+            BlocksOnThisLevel.Clear();
+            level = 0; //this seems to work, probably because i adjusted the system that blocks are deleted
+
+        }
+
+        previousBlock = null;
+        prevnumber = 0f;
+
+        BlocksOnLastLevel.Clear();
+
+        if (readytobuild)
+        {
+            //set the random seed
+            //this is the best spot for it in my short testing.
+            Random.InitState(seed);
+            seed++;
+
+            for (int i = 0; i < towerBlocksInt; i++)
+            {
+                addNewBlock();
+                //Invoke("addNewBlock", 0.1f);
+                //if there are issues
+                level++;
+            }
+
+            freeRotation = false;
+
+            readytobuild = false;
+        }
+
+
+    }
+
+    public void towerFall()
+    {
+        releaseRestrictions();
+        freeRotation = true;
+        sleeptimer = 0;
     }
 
 

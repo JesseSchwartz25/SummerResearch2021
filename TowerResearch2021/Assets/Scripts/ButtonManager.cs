@@ -15,6 +15,7 @@ public class ButtonManager : MonoBehaviour
     public TMP_Text startButtonText;
     public int state;
     private int prevState;
+    public Slider slider;
     
 
 
@@ -65,118 +66,140 @@ public class ButtonManager : MonoBehaviour
 
         Debug.DrawRay(Grabber.transform.position, -Grabber.transform.forward);
 
-        if (Physics.Raycast(ray, out hit, 1.5f))
+        if (Physics.Raycast(ray, out hit, 1.5f, LayerMask.GetMask("UI")))
         {
-            if (hit.collider == startButton.GetComponent<Collider>()) //ray is hitting this button
+
+
+            if(hit.collider == startButton.GetComponent<Collider>())
             {
-                //Debug.Log("Hit something");
-                //this works. just make sure the layers are correct
-
-
-                //startButton.OnPointerEnter();
-                //startButton.animationTriggers.
-
-                if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected --> because we are still hovering we go to HoverSelect (disabled)
+                startButton.OnPointerEnter(null);
+                if (Grabber.GetComponent<HapticGrabber>().getButtonStatus())
                 {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.disabledTrigger);
-                    state = 4;
                     startButton.onClick.Invoke();
-                    //TODO: if this button is activated and hovered over after pressing the other one, it will not invoke
+                    startButton.OnSelect(null);
+                    return;
                 }
-
-
-
-                if (newGrabberPress()) //button is pressed, go pressed. doesnt matter the previous state
+                else
                 {
-
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.pressedTrigger);
-                    startButtonManager.buttonPressed = !startButtonManager.buttonPressed;
-                    state = 2;
-
-                }
-                else if (!startButtonManager.buttonPressed && newGrabberRelease() || (state == 0 && !grabberButtonThis)) //button is normal but hovered --> go hover. makes sure we do not highlight two buttons at the same time
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.highlightedTrigger);
-                    state = 1;
-                }
-
-                else if (!startButtonManager.buttonPressed && newGrabberRelease() || state == 3 && !grabberButtonThis) //hovered while selected, go selectedHover (disabled)
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.disabledTrigger);
-                    state = 4;
-
-                }
-
-
-            }
-
-            else //this is here in case we are hovering over another button while we release from the first button
-            //raycast hitting something else
-            {
-                if (state == 1) //button is not pressed, not hovered, go normal
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
-                    state = 0;
-                }
-
-                if (state == 4) // if hovered and selected, go selected when no longer hovered
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
-                    state = 3;
-
-                }
-
-                if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
-                    state = 3;
-                    startButton.onClick.Invoke();
-
-                }
-                if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
-                {
-                    buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
-                    state = 0;
+                    startButton.OnPointerExit(null);
+                    startButton.OnDeselect(null);
                 }
             }
+            else
+            {
+                startButton.OnPointerExit(null);
+                startButton.OnDeselect(null);
+            }
+        
+
+
+            //if (hit.collider == startButton.GetComponent<Collider>()) //ray is hitting this button
+            //{
+            //    //Debug.Log("Hit something");
+            //    //this works. just make sure the layers are correct
+
+
+            //    //startButton.OnPointerEnter();
+            //    //startButton.animationTriggers.
+
+            //    if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected --> because we are still hovering we go to HoverSelect (disabled)
+            //    {
+                    
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.disabledTrigger);
+            //        state = 4;
+            //        startButton.onClick.Invoke();
+            //    }
+
+
+
+            //    if (newGrabberPress()) //button is pressed, go pressed. doesnt matter the previous state
+            //    {
+
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.pressedTrigger);
+            //        startButtonManager.buttonPressed = !startButtonManager.buttonPressed;
+            //        state = 2;
+
+            //    }
+            //    else if (!startButtonManager.buttonPressed && newGrabberRelease() || (state == 0 && !grabberButtonThis)) //button is normal but hovered --> go hover. makes sure we do not highlight two buttons at the same time
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.highlightedTrigger);
+            //        state = 1;
+            //    }
+
+            //    else if (!startButtonManager.buttonPressed && newGrabberRelease() || state == 3 && !grabberButtonThis) //hovered while selected, go selectedHover (disabled)
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.disabledTrigger);
+            //        state = 4;
+
+            //    }
+
+
+            //}
+
+            //else //this is here in case we are hovering over another button while we release from the first button
+            ////raycast hitting something else
+            //{
+            //    if (state == 1) //button is not pressed, not hovered, go normal
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+            //        state = 0;
+            //    }
+
+            //    if (state == 4) // if hovered and selected, go selected when no longer hovered
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
+            //        state = 3;
+
+            //    }
+
+            //    if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
+            //        state = 3;
+            //        startButton.onClick.Invoke();
+
+            //    }
+            //    if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
+            //    {
+            //        buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+            //        state = 0;
+            //    }
+            //}
 
         }//no raycasthit
         else //this is for releasing when we are not hovering a different button
         {
-            if (!startButtonManager.buttonPressed && state == 1) //button is not pressed, not hovered, go normal
-            {
-                buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
-                state = 0;
-            }
+            //if (!startButtonManager.buttonPressed && state == 1) //button is not pressed, not hovered, go normal
+            //{
+            //    buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+            //    state = 0;
+            //}
 
-            if (state == 4) // if hovered and selected, go selected when no longer hovered
-            {
-                buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
-                state = 3;
-            }
+            //if (state == 4) // if hovered and selected, go selected when no longer hovered
+            //{
+            //    buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
+            //    state = 3;
+            //}
 
-            if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected
-            {
-                buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
-                state = 3;
-                startButton.onClick.Invoke();
+            //if (startButtonManager.buttonPressed && newGrabberRelease() && state != 3) // button is released after being pressed, go selected
+            //{
+            //    buttonAnimator.SetTrigger(startButton.animationTriggers.selectedTrigger);
+            //    state = 3;
+            //    startButton.onClick.Invoke();
                 
-            }
-            if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
-            {
-                buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
-                state = 0;
-            }
+            //}
+            //if (!startButtonManager.buttonPressed && newGrabberRelease()) // button is released after being pressed, go selected
+            //{
+            //    buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+            //    state = 0;
+            //}
         }
-        if(state == 0)
-        {
-            //buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
-        }
+
 
 
 
         //startButtonText.text = "" + state;
-
+        
     }
 
     public void buttonReset()
@@ -193,7 +216,7 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    bool newGrabberPress()
+    public bool newGrabberPress()
     {
         return grabberButtonThis && !grabberButtonLast;
     }

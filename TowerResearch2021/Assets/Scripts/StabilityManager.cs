@@ -28,14 +28,14 @@ public class StabilityManager : MonoBehaviour
         RaycastHit hit;
         Ray ray = new Ray(Grabber.transform.position, -Grabber.transform.forward);
 
-        if (Physics.Raycast(ray, out hit, .5f))
+        if (Physics.Raycast(ray, out hit, .5f, LayerMask.GetMask("UI")))
         {
             if(hit.collider.name == "Background")
             {
                 slider.OnPointerEnter(null);
                 if (Grabber.GetComponent<HapticGrabber>().getButtonStatus())
                 {
-                    slider.value = (hit.point.x + 0.5f) * 7;
+                    slider.value = (hit.point.x + 0.5f) * 7 - 1.75f;
                 }
                
             }
