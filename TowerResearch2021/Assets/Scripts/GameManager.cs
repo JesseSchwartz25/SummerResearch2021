@@ -412,7 +412,7 @@ public class GameManager : MonoBehaviour
                 if (!overlap)
                 {
                     //no overlap, placed on the baseblock
-                    Debug.Log(previousBlock.name + " placed on the baseblock");
+                    //Debug.Log(previousBlock.name + " placed on the baseblock");
                     
                 }
                 else //box overlaps and must be moved
@@ -439,12 +439,12 @@ public class GameManager : MonoBehaviour
                         if(hit.transform.name == "BaseBlock")
                         {
                             //this should never come up because of the layer mask
-                            Debug.Log("looping on base hit");
+                            //Debug.Log("looping on base hit");
                             continue;
                         }
 
 
-                        Debug.Log(previousBlock.name + " raycast hit " + hit.transform.name);
+                        //Debug.Log(previousBlock.name + " raycast hit " + hit.transform.name);
                         Destroy(previousBlock);
                         //prevBlockChild.GetComponent<Renderer>().material = transparent;
                         previousBlock = Instantiate(toBuild, new Vector3(randpos[0], (toBuildChild.localScale.y * 0.5f) + (hit.transform.GetChild(0).transform.localScale.y * 0.5f) + hit.transform.position.y, randpos[1]), toBuild.transform.rotation);
@@ -457,7 +457,7 @@ public class GameManager : MonoBehaviour
                         if (!Physics.CheckBox(previousBlock.transform.position, prevBlockChild.GetComponent<Collider>().bounds.extents, Quaternion.identity, mask))
                         {
                            // previousBlock.GetComponent<BlockScript>().hitsList = outhits;
-                            Debug.Log("block placed");
+                            //Debug.Log("block placed");
                             //reallow for the hit to be checked for hits
                             hit.transform.gameObject.layer = 3;
                             hit.transform.GetChild(0).gameObject.layer = 3;
@@ -612,7 +612,7 @@ public class GameManager : MonoBehaviour
         yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
         //setting to 0 for debugging
 
-        Debug.Log("deleting " + blockCountToDelete + " blocks");
+        //Debug.Log("deleting " + blockCountToDelete + " blocks");
 
         for (int i = 0; i < baseBlock.transform.childCount; i++)
         {

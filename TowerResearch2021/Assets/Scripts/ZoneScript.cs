@@ -67,39 +67,15 @@ public class ZoneScript : MonoBehaviour
                                         ZoneChoice = j;
                                         thisButton.OnSelect(null);
                                         thisButton.onClick.Invoke();
+
                                     }
-
                                 }
-
-
                             }
-                            break;
-                        }
-
-                        
+                        }                       
                     }
-
-
-                    //Debug.Log(i.collider.name);
                 }
             }
-
-            //if (Physics.Raycast(ray, out hit, .25f, LayerMask.GetMask("UI")))            
-            //{
-            //    if (hit.collider.CompareTag("DataDir"))
-            //    {
-
-
-            //        Debug.Log("hit: " + hit.collider.name);
-
-            //    }
-            //}
-
-
-            //if(Physics.ch)
-        }
-        
-
+        }        
     }
 
 
