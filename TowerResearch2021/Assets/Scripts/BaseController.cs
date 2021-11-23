@@ -58,7 +58,7 @@ public class BaseController : MonoBehaviour
 
     public void ResetRotation()
     {
-        LeanTween.rotate(this.gameObject, new Vector3(0, 0, 0), 0.5f).setEaseInOutCubic();
+        LeanTween.rotate(this.gameObject, new Vector3(0, 0, 0), 1.0f).setEaseInOutCubic();
         //leantween is a library that makes some animations a little bit easier to do in code
     }
 }

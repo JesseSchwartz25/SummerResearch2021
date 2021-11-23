@@ -18,7 +18,7 @@ public class RadioDialRotation : MonoBehaviour
     void Update()
     {
         transform.rotation = baseObject.transform.rotation;
-        transform.Rotate(0, 45, 0);
+        transform.Rotate(0, -45, 0);
         
     }
 }

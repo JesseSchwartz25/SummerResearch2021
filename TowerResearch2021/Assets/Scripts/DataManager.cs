@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//need these for file writing
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
 public class DataManager : MonoBehaviour
 {
 
@@ -15,8 +20,12 @@ public class DataManager : MonoBehaviour
 
     public int zone;
     public float stable;
-    
+    float time;
 
+
+    public GameObject vertBlock, vert2;
+    public GameObject horBlock, ho2;
+    Vector3 vertStart, vert2start, hoStart, ho2start;
 
 
 
@@ -29,7 +38,13 @@ public class DataManager : MonoBehaviour
     {
         gm = GameManager.instance;
         buttons = direction.returnButtons();
-        gm.Invoke("buildTower", 0.1f);
+        gm.Invoke("buildTower", 0.4f);
+        resetData();
+
+        vertStart = vertBlock.transform.position;
+        hoStart = horBlock.transform.position;
+        vert2start = vert2.transform.position;
+        ho2start = ho2.transform.position;
     }
 
     // Update is called once per frame
@@ -65,6 +80,15 @@ public class DataManager : MonoBehaviour
             Debug.Log("Data saved");
             Debug.Log("Zone: " + zone + " Stability: " + stable);
 
+            //collect the starting position of each block
+            GameObject baseObject = GameObject.Find("Base");
+            Rigidbody[] rbList = baseObject.GetComponentsInChildren<Rigidbody>();
+            startingPositions = new Vector3[rbList.Length];
+            for (int i = 0; i < rbList.Length; i++)
+            {
+                startingPositions[i] = rbList[i].position;
+            }
+
             direction.setZoneChoice(-1);
 
             foreach (Button i in buttons)
@@ -74,19 +98,29 @@ public class DataManager : MonoBehaviour
             stability.slider.interactable = false;
 
 
-            gm.Invoke("towerFall", 1f);
+            gm.Invoke("towerFall", 1.1f);
             Invoke("collectTruth", 5.5f);
             
             //once to delete the old tower, once to spawn in the new one.
             //has to work this way because it is coded that way...
             gm.Invoke("buildTower", 5.6f);
-            gm.Invoke("buildTower", 5.7f);
+            gm.Invoke("buildTower", 5.8f);
             Invoke("resetData", 5.8f);
+
+
+            vertBlock.transform.position = vertStart;
+            horBlock.transform.position = hoStart;
+            vert2.transform.position = vert2start;
+            ho2.transform.position = ho2start;
+            vertBlock.SetActive(false);
+            horBlock.SetActive(false);
+            ho2.SetActive(false);
+            vert2.SetActive(false);
 
 
 
         }
-       
+
 
 
 
@@ -96,6 +130,7 @@ public class DataManager : MonoBehaviour
     Vector3 centerOfMass;
     Vector3 furthestXZ;
     int[] zoneMajority;
+    Vector3[] finalPositions;
 
     public void collectTruth()
     {
@@ -108,8 +143,16 @@ public class DataManager : MonoBehaviour
         furthestXZ = new Vector3(0, 0, 0);
         float mass = 0;
         zoneMajority = new int[5] {0, 0, 0, 0, 0};
+        finalPositions = new Vector3[rbList.Length];
 
-        foreach(Rigidbody rb in rbList)
+
+        finalPositions = new Vector3[rbList.Length];
+        for (int i = 0; i < rbList.Length; i++)
+        {
+            finalPositions[i] = rbList[i].position;
+        }
+
+        foreach (Rigidbody rb in rbList)
         {
             avgPos += rb.position;
             centerOfMass += rb.position * rb.mass;
@@ -164,6 +207,7 @@ public class DataManager : MonoBehaviour
 
 
 
+
         }
 
 
@@ -190,12 +234,14 @@ public class DataManager : MonoBehaviour
         Debug.Log("Majority layout: " + majorityIndex);
         //Debug.DrawRay(avgPos, transform.up);
         drawAvg = avgPos;
+        WriteToFile();
     }
 
+    Vector3[] startingPositions;
     public void resetData()
     {
 
-
+        //reset the rest of the data collection UI
         stability.slider.interactable = true;
         foreach (Button i in buttons)
         {
@@ -210,6 +256,12 @@ public class DataManager : MonoBehaviour
         rotation.resetButton.interactable = true;
         rotation.spinClockwise.interactable = true;
         rotation.spinCounter.interactable = true;
+        time = Time.time;
+
+        vertBlock.SetActive(true);
+        horBlock.SetActive(true);
+        vert2.SetActive(true);
+        ho2.SetActive(true);
     }
 
     private void OnDrawGizmos()
@@ -217,5 +269,59 @@ public class DataManager : MonoBehaviour
         Gizmos.DrawLine(drawAvg, drawAvg + new Vector3(0, 3, 0));
         Gizmos.DrawSphere(centerOfMass, .1f);
         Gizmos.DrawCube(furthestXZ, new Vector3(.1f, .1f, .1f));
+    }
+
+
+
+    public void WriteToFile()
+    {
+        float timeToSubmit = Time.time - time;
+        Debug.Log(timeToSubmit);
+        //write the file. first need to check and see if the file exists.
+
+        //float[] dataToWrite = new float[] { zone, stable, drawAvg,  };
+        int[] userData = new int[] {zone, (int)stable};
+        var fileName = gm.userName + "Data.txt";
+        string path = @"C:\Users\js9764a\Desktop\IntPhysTowersExperimentData\" + fileName;
+
+        if (!File.Exists(path))
+        {
+            Debug.Log(fileName + " does not exist, initializing document");
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                sw.WriteLine(fileName);
+                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tMajority \tStart Pos \t|\tFinal Pos");
+            }
+
+        }
+        string startPosString = "{";
+        string finalPosString = "{";
+        for(int rb = 0; rb < startingPositions.Length; rb++)
+        {
+            startPosString += startingPositions[rb].ToString();
+            finalPosString += finalPositions[rb].ToString();
+
+            if(rb < startingPositions.Length - 1)
+            {
+                startPosString += ", ";
+                finalPosString += ", ";
+            }
+            else
+            {
+                startPosString += "}";
+                finalPosString += "}";
+            }
+        }
+
+        string majorityString = String.Format("[{0}, {1}, {2}, {3}, {4}]", zoneMajority[0], zoneMajority[1], zoneMajority[2], zoneMajority[3], zoneMajority[4]);
+            
+
+        Debug.Log("Appending " + fileName);
+        using (StreamWriter sw = File.AppendText(path))
+        {
+            sw.WriteLine(zone + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + majorityString + 
+                "\t" + startPosString + "\t|\t" + finalPosString);
+        }
+        
     }
 }

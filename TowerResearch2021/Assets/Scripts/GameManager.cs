@@ -55,6 +55,9 @@ public class GameManager : MonoBehaviour
     Collider m_Collider;
     RaycastHit[] m_Hits;
 
+    //for Data collection
+    public string userName = "test";
+
 
 
 
@@ -497,15 +500,18 @@ public class GameManager : MonoBehaviour
 
             //allowing for different masses of the blocks. Doing this after everything else becuase it otherwise doesnt affect anything in the chain of events besides the mass and it only happens sometimes if the button is pressed.
 
-            if (addMassScript.getMassStatus() == 0)
-            {
-                //allow for new masses
-                if (Random.value >= 0.8f)
-                {
-                    previousBlock.GetComponentInChildren<Renderer>().material = metalMat;
-                    previousBlock.GetComponent<Rigidbody>().mass = 2.5f;
-                }
-            }
+            //we are not using this for our current project. it works, though.
+
+
+            //if (addMassScript.getMassStatus() == 0)
+            //{
+            //    //allow for new masses
+            //    if (Random.value >= 0.8f)
+            //    {
+            //        previousBlock.GetComponentInChildren<Renderer>().material = metalMat;
+            //        previousBlock.GetComponent<Rigidbody>().mass = 2.5f;
+            //    }
+            //}
 
             previousBlock.tag = "CurrentLevel";
             previousBlock.layer = 3;

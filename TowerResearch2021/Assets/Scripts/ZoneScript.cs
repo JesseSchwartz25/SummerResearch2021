@@ -35,7 +35,7 @@ public class ZoneScript : MonoBehaviour
 
 
         RaycastHit hit;
-
+        bool breakouter = false;
         if (Grabber.GetComponent<HapticGrabber>().getButtonStatus())
         {
             //if the button is pressed at all.
@@ -67,11 +67,30 @@ public class ZoneScript : MonoBehaviour
                                         ZoneChoice = j;
                                         thisButton.OnSelect(null);
                                         thisButton.onClick.Invoke();
+                                       
 
+                                    }
+                                    if(j == 0)
+                                    {
+                                        //if we select the 0 button. for whatever reason this button is super finicky because its above other buttons
+                                        buttons[1].OnDeselect(null);
+                                        buttons[2].OnDeselect(null);
+                                        buttons[3].OnDeselect(null);
+                                        buttons[4].OnDeselect(null);
+
+                                        ZoneChoice = j;
+                                        buttons[0].OnSelect(null);
+                                        buttons[0].onClick.Invoke();
+                                        breakouter = true;
+                                        break;
                                     }
                                 }
                             }
-                        }                       
+                        }
+
+                        if (breakouter)
+                            break;
+                        //break the outer loop if zero is selected
                     }
                 }
             }
