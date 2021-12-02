@@ -45,7 +45,7 @@ public class ButtonManager : MonoBehaviour
         startButtonManager = this;
         state  = 0;
         grabberButtonThis = hapticGrabber.getButtonStatus();
-        buttonAnimator = startButton.GetComponent<Animator>();
+        //buttonAnimator = startButton.GetComponent<Animator>();
         startButtonText = startButton.GetComponentInChildren<TMP_Text>();
         spin = false;
         buttonReset();
@@ -210,14 +210,14 @@ public class ButtonManager : MonoBehaviour
 
     public void buttonReset()
     {
-        buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
+        //buttonAnimator.SetTrigger(startButton.animationTriggers.normalTrigger);
         state = 0;
         buttonPressed = false;
-        buttonAnimator.ResetTrigger("Highlighted");
-        buttonAnimator.ResetTrigger("Selected");
-        buttonAnimator.ResetTrigger("Disabled");
-        buttonAnimator.SetTrigger("Normal");
-        buttonAnimator.ResetTrigger("Normal");
+        //buttonAnimator.ResetTrigger("Highlighted");
+        //buttonAnimator.ResetTrigger("Selected");
+        //buttonAnimator.ResetTrigger("Disabled");
+        //buttonAnimator.SetTrigger("Normal");
+        //buttonAnimator.ResetTrigger("Normal");
 
     }
 
@@ -253,8 +253,8 @@ public class ButtonManager : MonoBehaviour
 
     public void spinClicked()
     {
-        Animator baseAnimator = GameObject.Find("Base").GetComponent<Animator>();
-        baseAnimator.SetTrigger("Spin");
+        //Animator baseAnimator = GameObject.Find("Base").GetComponent<Animator>();
+       // baseAnimator.SetTrigger("Spin");
 
         Debug.Log("test");
 

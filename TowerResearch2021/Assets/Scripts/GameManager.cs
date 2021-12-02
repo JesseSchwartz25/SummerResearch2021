@@ -59,6 +59,12 @@ public class GameManager : MonoBehaviour
     public string userName = "test";
 
 
+    //for handbuilt towers
+    public float[,] blocksPos = new float[300,2];
+    public int[,] orientation = new int[300, 2];
+    bool useHandmade = true;
+    public int blocksIndex = 0;
+
 
 
     //singleton
@@ -82,6 +88,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        try
+        {
+            userName = GameObject.Find("NameObject").GetComponent<NameScript>().name;
+        }
+        catch
+        {
+            //nothing
+        }
+
 
         //this is to get the sizes of the cubes, generalized in case the sizes change. these will be used later on to make sure that cubes are placed "legally" in the tower building process
 
@@ -117,6 +132,24 @@ public class GameManager : MonoBehaviour
 
 
 
+
+
+        //building the handmade arrays :\
+
+
+
+
+
+        blocksPos = GetComponent<TowerOrientations>().blocksPos;
+        orientation = GetComponent<TowerOrientations>().orientation;
+
+
+
+
+
+
+
+
     }
 
     // Update is called once per frame
@@ -140,7 +173,7 @@ public class GameManager : MonoBehaviour
 
 
         //keep the RB's awake for the first few seconds of their lives
-        if (freeRotation && sleeptimer < 2 && previousBlock != null)
+        if (freeRotation && sleeptimer < 4 && previousBlock != null)
         {
             previousBlock.GetComponent<Rigidbody>().WakeUp();
             //firstBlock.GetComponent<Rigidbody>().WakeUp();
@@ -230,6 +263,15 @@ public class GameManager : MonoBehaviour
         return randpos;
     }
 
+
+    float[] handbuildPos()
+    {
+        float[] handpos = new float[2];
+        handpos[0] = blocksPos[blocksIndex, 0];
+        handpos[1] = blocksPos[blocksIndex, 1];
+        return handpos;
+    }
+
     //this script is meant to add a new block to the legal tower.
     void addNewBlock()
     {
@@ -262,7 +304,13 @@ public class GameManager : MonoBehaviour
 
             float randint = Random.value;
             GameObject toBuild = horizontalBlock;
-            if (randint >= alternator)
+
+            if (useHandmade && orientation[blocksIndex,0] == 1)
+            {
+                toBuild = Instantiate(verticalBlock);
+                Destroy(toBuild);
+            }
+            else if (randint >= alternator && !useHandmade)
             {
                 //this creates a new clone of the blocks which is not linked to the block that they are based off of in the scene
                 //they are clones, but not connected like if we just did toBuild = verticalBlock
@@ -300,14 +348,29 @@ public class GameManager : MonoBehaviour
             if (matcount >= materials.Length)
                 matcount = 0;
 
-
-            float[] randpos = generateRandomPos();
+            float[] randpos;
+            if (useHandmade)
+            {
+                randpos = handbuildPos();
+            }
+            else
+            {
+                randpos = generateRandomPos();
+            }
+            
 
 
 
             bool rotated = false;
             //allowing for rotations of 90 degrees of the blocks, randomly
-            if (Random.value >= 0.5f)
+
+            if (useHandmade && orientation[blocksIndex,1] == 1)
+            {
+                toBuild.transform.Rotate(new Vector3(0, 90, 0));
+                rotated = true;
+            }
+
+            else if (Random.value >= 0.5f && !useHandmade)
             {
                 //trying rotation. if this doesnt work, the code below is more generalized and does work.
                 toBuild.transform.Rotate(new Vector3(0, 90, 0));
@@ -357,44 +420,47 @@ public class GameManager : MonoBehaviour
 
 
                 //need the scale to be correct because we are rotating, not altering scale.
-                if (rotated)
-                {
-                    float temp = randpos[0];
-                    randpos[0] = randpos[1];
-                    randpos[1] = temp;
-                }
+                //if (rotated)
+                //{
+                //    float temp = randpos[0];
+                //    randpos[0] = randpos[1];
+                //    randpos[1] = temp;
+                //}
 
 
                 //testing totally random values rather than based on a previous block:
 
+                if (!useHandmade)
+                {
+                    randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
+                    randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
+                    //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
+                }
 
-                randpos[0] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
-                randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
-                //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
 
 
 
                 //shift blocks according to which direction they should be falling:
-                if (fallLeft)
-                {
-                    randpos[0] = shiftLeft(randpos[0]);
-                }
-                else if (fallRight)
-                {
-                    randpos[0] = shiftRight(randpos[0]);
-                }
-                else if (fallForward)
-                {
-                    randpos[1] = shiftForward(randpos[1]);
-                }
-                else if (fallBackward)
-                {
-                    randpos[1] = shiftBackward(randpos[1]);
-                }
-                else
-                {
-                    randpos = steady(randpos);
-                }
+                //if (fallLeft)
+                //{
+                //    randpos[0] = shiftLeft(randpos[0]);
+                //}
+                //else if (fallRight)
+                //{
+                //    randpos[0] = shiftRight(randpos[0]);
+                //}
+                //else if (fallForward)
+                //{
+                //    randpos[1] = shiftForward(randpos[1]);
+                //}
+                //else if (fallBackward)
+                //{
+                //    randpos[1] = shiftBackward(randpos[1]);
+                //}
+                //else
+                //{
+                //    randpos = steady(randpos);
+                //}
 
 
 
@@ -535,8 +601,8 @@ public class GameManager : MonoBehaviour
              * 
              */
 
-     
 
+            blocksIndex++;
 
 
 

@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.Animations;
+//using UnityEditor.Animations;
 using UnityEngine.UI;
 
 public class BaseController : MonoBehaviour
 {
     private Vector3 rotate;
-    public Animator baseAnimator;
+    //public Animator baseAnimator;
     public Button spinClockwise;
     public Button spinCounter;
     public Button resetButton;

@@ -99,13 +99,13 @@ public class DataManager : MonoBehaviour
 
 
             gm.Invoke("towerFall", 1.1f);
-            Invoke("collectTruth", 5.5f);
+            Invoke("collectTruth", 6.0f);
             
             //once to delete the old tower, once to spawn in the new one.
             //has to work this way because it is coded that way...
-            gm.Invoke("buildTower", 5.6f);
-            gm.Invoke("buildTower", 5.8f);
-            Invoke("resetData", 5.8f);
+            gm.Invoke("buildTower", 6.1f);
+            gm.Invoke("buildTower", 6.2f);
+            Invoke("resetData", 6.25f);
 
 
             vertBlock.transform.position = vertStart;
@@ -290,7 +290,7 @@ public class DataManager : MonoBehaviour
             using (StreamWriter sw = File.CreateText(path))
             {
                 sw.WriteLine(fileName);
-                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tMajority \tStart Pos \t|\tFinal Pos");
+                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tMajority \tStart Pos \tFinal Pos");
             }
 
         }
@@ -320,7 +320,7 @@ public class DataManager : MonoBehaviour
         using (StreamWriter sw = File.AppendText(path))
         {
             sw.WriteLine(zone + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + majorityString + 
-                "\t" + startPosString + "\t|\t" + finalPosString);
+                "\t" + startPosString + "\t" + finalPosString);
         }
         
     }
