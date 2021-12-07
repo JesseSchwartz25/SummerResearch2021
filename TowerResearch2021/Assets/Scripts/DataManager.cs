@@ -21,6 +21,7 @@ public class DataManager : MonoBehaviour
     public int zone;
     public float stable;
     float time;
+    public int epochs;
 
 
     public GameObject vertBlock, vert2;
@@ -36,9 +37,10 @@ public class DataManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        epochs = 0;
         gm = GameManager.instance;
         buttons = direction.returnButtons();
-        gm.Invoke("buildTower", 0.4f);
+        gm.Invoke("buildTower", .7f);
         resetData();
 
         vertStart = vertBlock.transform.position;
@@ -64,6 +66,17 @@ public class DataManager : MonoBehaviour
             rotation.spinClockwise.interactable = false;
             rotation.spinCounter.interactable = false;
             submit.readyToSubmit = false;
+        }
+
+        if(gm.blocksIndex >= 300)
+        {
+            gm.blocksIndex = 0;
+            epochs++;
+            
+        }
+        if (epochs == 3 && gm.blocksIndex != 0)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
         }
 
     }
@@ -104,8 +117,8 @@ public class DataManager : MonoBehaviour
             //once to delete the old tower, once to spawn in the new one.
             //has to work this way because it is coded that way...
             gm.Invoke("buildTower", 6.1f);
-            gm.Invoke("buildTower", 6.2f);
-            Invoke("resetData", 6.25f);
+            gm.Invoke("buildTower", 6.25f);
+            Invoke("resetData", 6.26f);
 
 
             vertBlock.transform.position = vertStart;
