@@ -22,6 +22,7 @@ public class DataManager : MonoBehaviour
     public float stable;
     float time;
     public int epochs;
+    public float yRotFinal;
 
 
     public GameObject vertBlock, vert2;
@@ -85,16 +86,17 @@ public class DataManager : MonoBehaviour
     {
         if (submit.readyToSubmit)
         {
+            GameObject baseObject = GameObject.Find("Base");
             zone = direction.returnDataChoice();
             stable = stability.slider.value;
-
+            yRotFinal = baseObject.transform.rotation.y;
             rotation.ResetRotation();
 
             Debug.Log("Data saved");
             Debug.Log("Zone: " + zone + " Stability: " + stable);
 
             //collect the starting position of each block
-            GameObject baseObject = GameObject.Find("Base");
+
             Rigidbody[] rbList = baseObject.GetComponentsInChildren<Rigidbody>();
             startingPositions = new Vector3[rbList.Length];
             for (int i = 0; i < rbList.Length; i++)
@@ -303,7 +305,7 @@ public class DataManager : MonoBehaviour
             using (StreamWriter sw = File.CreateText(path))
             {
                 sw.WriteLine(fileName);
-                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tMajority \tStart Pos \tFinal Pos");
+                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tY Rotation \tMajority \tStart Pos \tFinal Pos");
             }
 
         }
@@ -332,7 +334,7 @@ public class DataManager : MonoBehaviour
         Debug.Log("Appending " + fileName);
         using (StreamWriter sw = File.AppendText(path))
         {
-            sw.WriteLine(zone + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + majorityString + 
+            sw.WriteLine(zone + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + yRotFinal + "\t" + majorityString + 
                 "\t" + startPosString + "\t" + finalPosString);
         }
         
