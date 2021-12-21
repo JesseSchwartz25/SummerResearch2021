@@ -19,6 +19,7 @@ public class DataManager : MonoBehaviour
     public GameManager gm;
 
     public int zone;
+    public int zone2;
     public float stable;
     float time;
     public int epochs;
@@ -53,7 +54,7 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (direction.returnDataChoice() != -1)
+        if (direction.returnDataChoice()[0] != -1)
         {
             submit.readyToSubmit = true;
         }
@@ -87,7 +88,8 @@ public class DataManager : MonoBehaviour
         if (submit.readyToSubmit)
         {
             GameObject baseObject = GameObject.Find("Base");
-            zone = direction.returnDataChoice();
+            zone = direction.returnDataChoice()[0];
+            zone2 = direction.returnDataChoice()[1];
             stable = stability.slider.value;
             yRotFinal = baseObject.transform.rotation.y;
             rotation.ResetRotation();
@@ -104,7 +106,7 @@ public class DataManager : MonoBehaviour
                 startingPositions[i] = rbList[i].position;
             }
 
-            direction.setZoneChoice(-1);
+            direction.setZoneChoice(new int[] { -1, -1 });
 
             foreach (Button i in buttons)
             {
@@ -305,7 +307,7 @@ public class DataManager : MonoBehaviour
             using (StreamWriter sw = File.CreateText(path))
             {
                 sw.WriteLine(fileName);
-                sw.WriteLine("Zone \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tY Rotation \tMajority \tStart Pos \tFinal Pos");
+                sw.WriteLine("Zone1 \tZone2 \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tY Rotation \tMajority \tStart Pos \tFinal Pos");
             }
 
         }
@@ -334,7 +336,7 @@ public class DataManager : MonoBehaviour
         Debug.Log("Appending " + fileName);
         using (StreamWriter sw = File.AppendText(path))
         {
-            sw.WriteLine(zone + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + yRotFinal + "\t" + majorityString + 
+            sw.WriteLine(zone + "\t" + zone2 + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + yRotFinal + "\t" + majorityString + 
                 "\t" + startPosString + "\t" + finalPosString);
         }
         
