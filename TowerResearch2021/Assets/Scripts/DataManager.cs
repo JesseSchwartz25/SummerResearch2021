@@ -25,7 +25,7 @@ public class DataManager : MonoBehaviour
     public int epochs;
     public float yRotFinal;
 
-
+    //these are the blocks that the user can play with
     public GameObject vertBlock, vert2;
     public GameObject horBlock, ho2;
     Vector3 vertStart, vert2start, hoStart, ho2start;
@@ -33,8 +33,8 @@ public class DataManager : MonoBehaviour
 
 
     //collect data from the UI
-    //add data to the spreadsheet
-    //profit?
+    //add data to the "spreadsheet"
+    //the data files are just .txt files, but they are pre-formatted and can easily just be copied and pasted into excel/google sheets with correct formatting
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +54,9 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //make sure at least one zone is selected - can't submit if no zones are selected
+        //the user does not have to touch stability in order to submit. only select one zone
+        //so we have to make sure they are focusing on stability and not forgetting it.
         if (direction.returnDataChoice()[0] != -1)
         {
             submit.readyToSubmit = true;
@@ -64,6 +67,7 @@ public class DataManager : MonoBehaviour
         }
         if (!stability.slider.IsInteractable())
         {
+            //if we can't use the slider, we can't use anything else
             rotation.resetButton.interactable = false;
             rotation.spinClockwise.interactable = false;
             rotation.spinCounter.interactable = false;
@@ -72,12 +76,14 @@ public class DataManager : MonoBehaviour
 
         if(gm.blocksIndex >= 300)
         {
+            //reset the trial index each time we finish an epoch (50 trials)
             gm.blocksIndex = 0;
             epochs++;
             
         }
         if (epochs == 3 && gm.blocksIndex != 0)
         {
+            //end the experiment
             UnityEngine.SceneManagement.SceneManager.LoadScene("EndScene");
         }
 
@@ -85,9 +91,11 @@ public class DataManager : MonoBehaviour
 
     public void submitData()
     {
-        if (submit.readyToSubmit)
+        if (submit.readyToSubmit) //ie: at least one zone is selected
         {
             GameObject baseObject = GameObject.Find("Base");
+
+            //collect values and reset rotation
             zone = direction.returnDataChoice()[0];
             zone2 = direction.returnDataChoice()[1];
             stable = stability.slider.value;
@@ -114,17 +122,22 @@ public class DataManager : MonoBehaviour
             }
             stability.slider.interactable = false;
 
-
+            //activate physics in 1.1 seconds, then collect the truth in 6 seconds
+            //I've found these times to feel the most natural and consistant in terms of towers having finished their physics interactions.
             gm.Invoke("towerFall", 1.1f);
             Invoke("collectTruth", 6.0f);
             
             //once to delete the old tower, once to spawn in the new one.
             //has to work this way because it is coded that way...
+            //there is a break between the deletion and spawning because
+            //if the new tower is spawned to soon, the algortithm will not work properly
+            //this is dependent on processing speed, so it happens occasionally during runtime anyways.
+            //see bug report for more information.
             gm.Invoke("buildTower", 6.1f);
             gm.Invoke("buildTower", 6.25f);
             Invoke("resetData", 6.26f);
 
-
+            //reset the position of the playable blocks
             vertBlock.transform.position = vertStart;
             horBlock.transform.position = hoStart;
             vert2.transform.position = vert2start;
@@ -151,6 +164,9 @@ public class DataManager : MonoBehaviour
 
     public void collectTruth()
     {
+
+        //grab the correct values after physics have been activated
+
         GameObject baseObject = GameObject.Find("Base");
         Rigidbody[] rbList = baseObject.GetComponentsInChildren<Rigidbody>();
         int numKids = baseObject.transform.childCount;
@@ -175,7 +191,7 @@ public class DataManager : MonoBehaviour
             centerOfMass += rb.position * rb.mass;
             mass += rb.mass;
 
-            //calculate the furthest from the center
+            //calculate the furthest block from the center
             if(rb.position.x * rb.position.x + rb.position.z * rb.position.z > furthestXZ.x * furthestXZ.x + furthestXZ.z + furthestXZ.z)
             {
                 furthestXZ = rb.position;
@@ -219,6 +235,7 @@ public class DataManager : MonoBehaviour
                 {
                     Debug.Log("Couldnt do the thing");
                     //throw;
+                    //this shouldnt happen, but there were issues without it
                 }
             }
 
@@ -251,7 +268,10 @@ public class DataManager : MonoBehaviour
         Debug.Log("Majority layout: " + majorityIndex);
         //Debug.DrawRay(avgPos, transform.up);
         drawAvg = avgPos;
+
+
         WriteToFile();
+
     }
 
     Vector3[] startingPositions;
@@ -292,6 +312,9 @@ public class DataManager : MonoBehaviour
 
     public void WriteToFile()
     {
+
+        //this works pretty well, check the data files if you are confused about anything and it should clear things up for you
+
         float timeToSubmit = Time.time - time;
         Debug.Log(timeToSubmit);
         //write the file. first need to check and see if the file exists.
@@ -306,6 +329,7 @@ public class DataManager : MonoBehaviour
             Debug.Log(fileName + " does not exist, initializing document");
             using (StreamWriter sw = File.CreateText(path))
             {
+                //write the header for the data
                 sw.WriteLine(fileName);
                 sw.WriteLine("Zone1 \tZone2 \tStability \tTime \tAvg Pos \tFurthest \tCenterOfMass \tY Rotation \tMajority \tStart Pos \tFinal Pos");
             }
@@ -336,6 +360,7 @@ public class DataManager : MonoBehaviour
         Debug.Log("Appending " + fileName);
         using (StreamWriter sw = File.AppendText(path))
         {
+            //preformatted so that it can be pasted into a spreadsheet easily.
             sw.WriteLine(zone + "\t" + zone2 + "\t" + stable + "\t" + timeToSubmit + "\t" + drawAvg.ToString() + "\t" + furthestXZ.ToString() + "\t" + centerOfMass.ToString() + "\t" + yRotFinal + "\t" + majorityString + 
                 "\t" + startPosString + "\t" + finalPosString);
         }

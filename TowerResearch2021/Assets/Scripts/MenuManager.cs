@@ -10,6 +10,13 @@ public class MenuManager : MonoBehaviour
     public Button StartButton, InstructionsButton, backButton, backButton2, startExpButton;
     public Canvas MainCanvas, NameCanvas, InstructionsCanvas;
     public TMP_InputField nameInput;
+
+
+    //this script deals with the UI at the start of the experiment. 
+    //it ensures that the user is seeing and interacting with the correct buttons/text
+    //mildly obselete after we decided to read the instructions to everyone before we started the experiment
+    //but still usefull and necessary for certain interactions.
+
     // Start is called before the first frame update
     void Start()
     {

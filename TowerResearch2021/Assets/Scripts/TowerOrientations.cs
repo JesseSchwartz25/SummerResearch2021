@@ -6,11 +6,18 @@ public class TowerOrientations : MonoBehaviour
 {
     // Start is called before the first frame update
 
+
+    //this is how every tower is built. 
+    //position is first, then orientation
+    //each trial consists of 6 blocks, each block has two values (x and z position or x/z and y rotation)
+
     public float[,] blocksPos = new float[300, 2];
     public int[,] orientation = new int[300, 2];
     void Start()
     {
+        //x
         blocksPos[0, 0] = 0;
+        //z
         blocksPos[0, 1] = 0;
 
         blocksPos[1, 0] = 0;
