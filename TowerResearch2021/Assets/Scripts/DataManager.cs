@@ -11,6 +11,18 @@ using System.Threading.Tasks;
 public class DataManager : MonoBehaviour
 {
 
+    /**
+     * 
+     * This script manages all data collection in the program
+     * It is stored in a plaintext file, but tab separated to it can easily be copied into a spreadsheet.
+     * 
+     * Data is collected both when the user hits submit (entering their choices, rotation, )
+     * and when the towers have finished falling
+     * 
+     * 
+     * 
+     */
+
     public StabilityManager stability;
     public ZoneScript direction;
     public ButtonManager2 submit;
@@ -99,7 +111,7 @@ public class DataManager : MonoBehaviour
             zone = direction.returnDataChoice()[0];
             zone2 = direction.returnDataChoice()[1];
             stable = stability.slider.value;
-            yRotFinal = baseObject.transform.rotation.y;
+            yRotFinal = baseObject.transform.rotation.eulerAngles.y;
             rotation.ResetRotation();
 
             Debug.Log("Data saved");

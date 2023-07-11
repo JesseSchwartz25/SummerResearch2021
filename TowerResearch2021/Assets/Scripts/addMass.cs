@@ -5,6 +5,12 @@ using UnityEngine;
 public class addMass : MonoBehaviour
 {
 
+    /* 
+    This script is in charge of setting the mass for each object
+    
+    Not used in version 1 of the tower experiment.
+     */
+
     public GameObject grabber;
     public Material[] materials;
     private int matcount;
