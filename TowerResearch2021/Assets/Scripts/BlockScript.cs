@@ -6,6 +6,12 @@ public class BlockScript : MonoBehaviour
 {
     // Start is called before the first frame update
 
+    /// <summary>
+    /// This script is used on the grabbable blocks. They are all prefabs so they all have an identical copy of this script
+    /// 
+    /// This is mostly used for debugging when things go wrong with the physics, which has been mostly fixed by now
+    /// </summary>
+
 
     private Rigidbody rb = null;
     public bool grabbed = false;
@@ -22,7 +28,6 @@ public class BlockScript : MonoBehaviour
         rb.constraints = RigidbodyConstraints.FreezeAll;
         starttag = this.gameObject.tag;
         hitsList = null;
-        //GameManager.RBList.Add(rb);
     }
 
     // Update is called once per frame
@@ -30,15 +35,6 @@ public class BlockScript : MonoBehaviour
     
     void Update()
     {
-        //if (grabbed)
-        //{
-        //    rb.useGravity = true;
-        //}
-
-        //else
-        //{
-        //    rb.useGravity = false;
-        //}
 
         if (!grabbed)
         {

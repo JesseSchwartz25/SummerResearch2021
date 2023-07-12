@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
+    /// <summary>
+    /// Pretty much everything runs through this script
+    /// 
+    /// 
+    /// </summary>
+
     private const float sleepenergy = 0.01f;
 
     // Start is called before the first frame update
@@ -131,28 +138,16 @@ public class GameManager : MonoBehaviour
         mask = LayerMask.GetMask("Blocks");
 
 
-
-
-
         //building the handmade arrays :\
-
-
-
 
 
         blocksPos = GetComponent<TowerOrientations>().blocksPos;
         orientation = GetComponent<TowerOrientations>().orientation;
 
 
-
-
-
-
-
-
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -173,6 +168,7 @@ public class GameManager : MonoBehaviour
 
 
         //keep the RB's awake for the first few seconds of their lives
+        //blocks used to fall asleep early causing the towers to not entirely fall over. this fixes that
         if (freeRotation && sleeptimer < 4 && previousBlock != null)
         {
             previousBlock.GetComponent<Rigidbody>().WakeUp();
@@ -199,6 +195,8 @@ public class GameManager : MonoBehaviour
         readytobuild = true;
     }
 
+   
+    /// this is for if you want the blocks to hang naturally or be held rigid when being grabbed by the user
     void releaseRestrictions()
     {
         for (int i = 0; i < baseBlock.transform.childCount; i++)
@@ -209,7 +207,12 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    /// <summary>
+    /// Used in generating random towers. Not used when a user is playing
+    /// </summary>
+    /// <returns>
+    /// Float array of random x and z positions
+    /// </returns>
     float[] generateRandomPos()
     {
 
@@ -271,22 +274,14 @@ public class GameManager : MonoBehaviour
         handpos[1] = blocksPos[blocksIndex, 1];
         return handpos;
     }
-
-    //this script is meant to add a new block to the legal tower.
+    /// <summary>
+    /// This script spawns new blocks. Very Important!! 
+    /// </summary>
     void addNewBlock()
     {
 
-
-        //[7/26] need to add ability to spawn multiple blocks on the same level
-
-
-
         int blocksOnLevel = (int)(Random.value * 4) + 1;
-        //Debug.Log(blocksOnLevel + " random integer calculated");
-
-
-
-
+        
 
         foreach (var x in BlocksOnThisLevel)
         {
@@ -386,13 +381,7 @@ public class GameManager : MonoBehaviour
                 previousBlock = BlocksOnLastLevel[(int)(Random.value * BlocksOnLastLevel.Count)];
                 //Debug.Log("Previous block is " + previousBlock.name);
             }
-
-
-
-
-
-
-
+            
 
             /*
              * 
@@ -671,6 +660,12 @@ public class GameManager : MonoBehaviour
         //}
     }
 
+
+    /// <summary>
+    /// This is the main structure of the program:
+    /// 1: It safely deletes the old tower
+    /// 2: spawns in a new tower
+    /// </summary>
     public void buildTower()
     {
 
@@ -730,15 +725,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// This releases all rigidbody restrictions, causing the static towers to be affect by gravity again.
+    /// It also set the sleeptimer to 0 so that the rigidbodies do not prematurely stop falling
+    /// </summary>
     public void towerFall()
     {
         releaseRestrictions();
         freeRotation = true;
         sleeptimer = 0;
     }
-
-
-
 
 
 }
