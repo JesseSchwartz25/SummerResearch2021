@@ -17,49 +17,26 @@ public class BaseController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    // void Update()
 
-    // //! [07/23] Pretty sure all of this is obsolete
-    // //TODO: Verify obsolete
-    // {
-    //     if (spinClockwise.GetComponent<ButtonManager>().state == 2)
-    //     {
-    //        RotateClockwise();
-    //     }
-
-    //     if (spinCounter.GetComponent<ButtonManager>().state == 2)
-    //     {
-    //        RotateCounterClockwise();
-    //     }
-
-    //     if (spinCounter.GetComponent<ButtonManager>().newGrabberRelease())
-    //     {
-    //        spinCounter.GetComponent<ButtonManager>().buttonReset();
-    //        spinClockwise.GetComponent<ButtonManager>().buttonReset();
-    //        resetButton.GetComponent<ButtonManager>().buttonReset();
-
-    //     }
-
-    // }
-
-    
-
-
-    //These functions are taken directly by the three buttons in the UI    
+    /// <summary>
+    /// invoked by the rotation buttons in the UI
+    /// </summary>  
     public void RotateClockwise()
     {
-
         this.gameObject.transform.Rotate(0, 30 * Time.deltaTime, 0, Space.Self);
-
-
     }
 
+    /// <summary>
+    /// invoked by the rotation buttons in the UI
+    /// </summary>  
     public void RotateCounterClockwise()
     {
         this.gameObject.transform.Rotate(0, -30 * Time.deltaTime, 0, Space.Self);
     }
 
+    /// <summary>
+    /// invoked by the rotation buttons in the UI
+    /// </summary>  
     public void ResetRotation()
     {
         LeanTween.rotate(this.gameObject, new Vector3(0, 0, 0), 1.0f).setEaseInOutCubic();

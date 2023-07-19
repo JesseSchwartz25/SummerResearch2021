@@ -5,6 +5,9 @@ using TMPro;
 
 public class NameScript : MonoBehaviour
 {
+    /// <summary>
+    /// used to store the name for data collection
+    /// </summary>
     public string name;
     // Start is called before the first frame update
     void Start()
@@ -14,10 +17,5 @@ public class NameScript : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }

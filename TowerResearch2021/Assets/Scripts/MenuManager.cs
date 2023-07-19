@@ -11,11 +11,13 @@ public class MenuManager : MonoBehaviour
     public Canvas MainCanvas, NameCanvas, InstructionsCanvas;
     public TMP_InputField nameInput;
 
+    /// <summary>
+    /// this script deals with the UI at the start of the experiment. 
+    /// it ensures that the user is seeing and interacting with the correct buttons/text
+    /// mildly obselete after we decided to read the instructions to everyone before we started the experiment
+    /// but still usefull and necessary for certain interactions.
+    /// </summary>
 
-    //this script deals with the UI at the start of the experiment. 
-    //it ensures that the user is seeing and interacting with the correct buttons/text
-    //mildly obselete after we decided to read the instructions to everyone before we started the experiment
-    //but still usefull and necessary for certain interactions.
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,9 @@ public class MenuManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// sets the UI to display the correct canvas
+    /// </summary>
     public void toName()
     {
         MainCanvas.enabled = false;
@@ -56,6 +61,9 @@ public class MenuManager : MonoBehaviour
         backButton2.interactable = false;
     }
 
+    /// <summary>
+    /// sets the UI to display the correct canvas
+    /// </summary>
     public void toInstructions()
     {
         InstructionsCanvas.enabled = true;
@@ -72,7 +80,10 @@ public class MenuManager : MonoBehaviour
        
     }
 
-   public void toMain()
+    /// <summary>
+    /// sets the UI to display the correct canvas
+    /// </summary>
+    public void toMain()
     {
         InstructionsCanvas.enabled = false;
         backButton2.interactable = false;
@@ -86,6 +97,9 @@ public class MenuManager : MonoBehaviour
         backButton.interactable = false;
     }
 
+    /// <summary>
+    /// change scene to the experiment
+    /// </summary>
     public void toExperiment()
     {
 

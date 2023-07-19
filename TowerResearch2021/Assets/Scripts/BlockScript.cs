@@ -7,7 +7,7 @@ public class BlockScript : MonoBehaviour
     // Start is called before the first frame update
 
     /// <summary>
-    /// This script is used on the grabbable blocks. They are all prefabs so they all have an identical copy of this script
+    /// This script is used on ALL the grabbable blocks. They are all prefabs so they all have an identical copy of this script
     /// 
     /// This is mostly used for debugging when things go wrong with the physics, which has been mostly fixed by now
     /// </summary>
@@ -35,7 +35,7 @@ public class BlockScript : MonoBehaviour
     
     void Update()
     {
-
+        //tags help with picking up objects/grabber physics
         if (!grabbed)
         {
             this.gameObject.tag = "Touchable";
@@ -53,10 +53,6 @@ public class BlockScript : MonoBehaviour
             Debug.Log(this.gameObject.name + " touched the grabber");
             grabbed = true;
         }
- 
-          
-
-        
 
     }
 

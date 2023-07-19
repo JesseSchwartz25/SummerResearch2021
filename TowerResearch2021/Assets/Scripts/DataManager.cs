@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 public class DataManager : MonoBehaviour
 {
+  
 
     /**
      * 
@@ -101,6 +102,9 @@ public class DataManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// collect the user's inputs based on tower observations
+    /// </summary>
     public void submitData()
     {
         if (submit.readyToSubmit) //ie: at least one zone is selected
@@ -174,6 +178,9 @@ public class DataManager : MonoBehaviour
     int[] zoneMajority;
     Vector3[] finalPositions;
 
+    /// <summary>
+    /// Collect data based on the end of the tower falling
+    /// </summary>
     public void collectTruth()
     {
 
@@ -287,6 +294,9 @@ public class DataManager : MonoBehaviour
     }
 
     Vector3[] startingPositions;
+    /// <summary>
+    /// Reset the experiment data vestibules for the next trial
+    /// </summary>
     public void resetData()
     {
 
@@ -321,7 +331,9 @@ public class DataManager : MonoBehaviour
     }
 
 
-
+    /// <summary>
+    /// Add the data to the .txt file in a new line
+    /// </summary>
     public void WriteToFile()
     {
 

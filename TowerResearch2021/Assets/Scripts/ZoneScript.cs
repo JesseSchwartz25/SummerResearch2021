@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class ZoneScript : MonoBehaviour
 {
+    /// <summary>
+    /// This script works with the UI and the user to make sure that the zones that they select are the actually selected.
+    /// this script is currently set up to work with the user selecting 2 zones per trial, but can be set up for just one
+    /// </summary>
 
 
 
 
-    // This script works with the UI and the user to make sure that the zones that they select are the actually selected.
-    // this script is currently set up to work with the user selecting 2 zones per trial.
 
     public Button Orange, Red, Yellow, Green, Blue;
     public GameObject Grabber;
@@ -56,7 +58,7 @@ public class ZoneScript : MonoBehaviour
         bool breakouter = false;
 
         //check if it is a new, unique press
-        if (bm.newGrabberPress() && !bm.newGrabberRelease() && timer > 0.2f)//Grabber.GetComponent<HapticGrabber>().getButtonStatus())
+        if (bm.newGrabberPress() && !bm.newGrabberRelease() && timer > 0.2f)
         {
             timer = 0;
             //if the button is pressed at all.

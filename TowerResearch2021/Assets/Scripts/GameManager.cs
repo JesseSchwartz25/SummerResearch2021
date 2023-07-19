@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
         float veY = vBlockObj.transform.localScale.y;
         float veZ = vBlockObj.transform.localScale.z;
 
+        //setting default values
         matcount = 0;
         blockCount = 0;
         freeRotation = false;
@@ -139,15 +140,15 @@ public class GameManager : MonoBehaviour
 
 
         //building the handmade arrays :\
-
-
         blocksPos = GetComponent<TowerOrientations>().blocksPos;
         orientation = GetComponent<TowerOrientations>().orientation;
 
 
     }
 
-
+    /// <summary>
+    /// Debug controls and physics timer stuff
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -179,9 +180,12 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //the blocks are deleted here because if they are deleted on the same frame that they are moved then there is a weird interaction with the tactile device
-    //because of the way that invoke works, this needs to be its own function.
-    //now works with the increased number of blocks in complex towers that have different numbers of blocks
+    /// <summary>
+    /// the blocks are deleted here because if they are deleted on the same frame that they are moved then there is a weird interaction with the tactile device
+    /// because of the way that invoke works, this needs to be its own function.
+    /// now works with the increased number of blocks in complex towers that have different numbers of blocks
+    /// </summary>
+
     void deleteOldBlocks()
     {
         for (int i = 0; i < baseBlock.transform.childCount; i++)
@@ -195,8 +199,9 @@ public class GameManager : MonoBehaviour
         readytobuild = true;
     }
 
-   
+       
     /// this is for if you want the blocks to hang naturally or be held rigid when being grabbed by the user
+    /// Not used much in the experiment
     void releaseRestrictions()
     {
         for (int i = 0; i < baseBlock.transform.childCount; i++)
@@ -242,7 +247,6 @@ public class GameManager : MonoBehaviour
             randxNorm = -1;
         }
 
-
         if (randzNorm >= 0.5f)
         {
             randzNorm = 1;
@@ -266,7 +270,12 @@ public class GameManager : MonoBehaviour
         return randpos;
     }
 
-
+    /// <summary>
+    /// retrieves the handbuilt positions of the towers
+    /// 
+    /// this will have to change when we implement the new towers for the experiment
+    /// </summary>
+    /// <returns></returns>
     float[] handbuildPos()
     {
         float[] handpos = new float[2];
@@ -274,6 +283,8 @@ public class GameManager : MonoBehaviour
         handpos[1] = blocksPos[blocksIndex, 1];
         return handpos;
     }
+
+
     /// <summary>
     /// This script spawns new blocks. Very Important!! 
     /// </summary>
@@ -328,11 +339,7 @@ public class GameManager : MonoBehaviour
 
             //this transform and the other below are needed to capture the scale of the tower block because they are stored in the children rather than the logic objects which are the parents
             Transform toBuildChild = toBuild.transform.GetChild(0);
-
-
-
-
-
+            
 
             //materials so that we can see the different blocks more easily
             Material prevMat = toBuild.GetComponentInChildren<Renderer>().material;
@@ -354,17 +361,14 @@ public class GameManager : MonoBehaviour
             }
             
 
-
-
             bool rotated = false;
-            //allowing for rotations of 90 degrees of the blocks, randomly
-
+            //allowing for rotations of 90 degrees of the blocks
             if (useHandmade && orientation[blocksIndex,1] == 1)
             {
                 toBuild.transform.Rotate(new Vector3(0, 90, 0));
                 rotated = true;
             }
-
+            //random if not using handmade towers
             else if (Random.value >= 0.5f && !useHandmade)
             {
                 //trying rotation. if this doesnt work, the code below is more generalized and does work.
@@ -402,21 +406,6 @@ public class GameManager : MonoBehaviour
             {
                 
 
-                //equivocate to the scale of the blocks. added the 0.5 for more normalization to make less extreme towers
-                //old version to the right, but I think the new version works pretty well.
-                //randpos[0] *= prevBlockChild.localScale.x;// * toBuildChild.localScale.x;//0.75f * toBuildChild.localScale.x * toBuildChild.localScale.x * toBuildChild.localScale.z;
-                //randpos[1] *= prevBlockChild.localScale.z;// * toBuildChild.localScale.z;//0.75f * toBuildChild.localScale.z * toBuildChild.localScale.x * toBuildChild.localScale.z;
-
-
-                //need the scale to be correct because we are rotating, not altering scale.
-                //if (rotated)
-                //{
-                //    float temp = randpos[0];
-                //    randpos[0] = randpos[1];
-                //    randpos[1] = temp;
-                //}
-
-
                 //testing totally random values rather than based on a previous block:
 
                 if (!useHandmade)
@@ -425,32 +414,6 @@ public class GameManager : MonoBehaviour
                     randpos[1] = Random.Range(-0.5f, 0.5f) * Random.Range(0.1f, 1f);
                     //blocks are spawning randomly across the entire base with this, come back and normalize once the vertical building is working.
                 }
-
-
-
-
-                //shift blocks according to which direction they should be falling:
-                //if (fallLeft)
-                //{
-                //    randpos[0] = shiftLeft(randpos[0]);
-                //}
-                //else if (fallRight)
-                //{
-                //    randpos[0] = shiftRight(randpos[0]);
-                //}
-                //else if (fallForward)
-                //{
-                //    randpos[1] = shiftForward(randpos[1]);
-                //}
-                //else if (fallBackward)
-                //{
-                //    randpos[1] = shiftBackward(randpos[1]);
-                //}
-                //else
-                //{
-                //    randpos = steady(randpos);
-                //}
-
 
 
                 //PLACE LOW MOVE UP - NEW ALGORITHM.
@@ -579,7 +542,7 @@ public class GameManager : MonoBehaviour
 
 
 
-            //what if instead of starting way high up and moving down, essentially creating a height based tower, we start at the bottom and move up, then creating a depth based tower that should be closer to what we are looking for!
+            //summary of how the blocks are built, starting low and moving up
             /*
              *instantiate block at the base
              * if it overlaps
@@ -625,41 +588,6 @@ public class GameManager : MonoBehaviour
         return randPos;
     }
 
-    void OnDrawGizmos()
-    {
-
-
-
-
-        //if (previousBlock != null)
-        //{
-
-
-        //    Gizmos.color = Color.red;
-
-
-        //    //Draw a Ray forward from GameObject toward the hit
-
-        //    foreach(RaycastHit hit in m_Hits)
-        //    {
-        //        Gizmos.DrawWireCube(hit.collider.bounds.center, hit.collider.bounds.size);
-                
-        //    }
-
-
-
-            //Gizmos.DrawRay(previousBlock.transform.position, previousBlock.transform.up);
-            ////Draw a cube that extends to where the hit exists
-            ////this doesnt accomodate for rotaion, but not the biggest deal
-            //Gizmos.DrawWireCube(m_Hit.transform.position, m_Hit.transform.GetChild(0).transform.localScale);
-
-            //Gizmos.color = Color.blue;
-            //Gizmos.DrawWireCube(firstposition, firstBlock.transform.GetChild(0).transform.localScale);
-
-
-        //}
-    }
-
 
     /// <summary>
     /// This is the main structure of the program:
@@ -671,15 +599,12 @@ public class GameManager : MonoBehaviour
 
 
         //testing having the grabber drop all items on space being pressed. did not fix bug 7
-        //grabber.transform.GetChild(1).gameObject.GetComponent<HapticGrabber>().release();
 
         firstBlock = null;
         blockCountToDelete = blockCount;
         blockCount = 0;
         yLevel = baseBlock.transform.position.y + baseBlock.transform.localScale.y;
         //setting to 0 for debugging
-
-        //Debug.Log("deleting " + blockCountToDelete + " blocks");
 
         for (int i = 0; i < baseBlock.transform.childCount; i++)
         {

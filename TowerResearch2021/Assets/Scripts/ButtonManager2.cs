@@ -6,6 +6,9 @@ using UnityEngine.EventSystems;
 
 public class ButtonManager2 : MonoBehaviour
 {
+    /// <summary>
+    /// Manages the haptic interactions with buttons, a much simplified, faster, and easier to read iteration compared to buttonmanager
+    /// </summary>
     public GameObject Grabber;
     public Button button;
     public Color readyColor, notReadyColor;
@@ -26,13 +29,20 @@ public class ButtonManager2 : MonoBehaviour
     }
 
     // Update is called once per frame
+    /// <summary>
+    /// If we are looking at the button (raycast), we basically just pretend that the grabber is a mouse.
+    /// 
+    /// This works perfectly for the grabber, however it leads to some minor issues if you actually end up using the mouse.
+    /// It also works very similarly to the slidermanager code
+    /// </summary>
     void Update()
     {
         button.interactable = readyToSubmit;
-
+        //check if we are looking at the button
         RaycastHit hit;
         Ray ray = new Ray(Grabber.transform.position, -Grabber.transform.forward);
 
+        //invoke mouse based functions on the button based on our grabber
         if (Physics.Raycast(ray, out hit, .5f, LayerMask.GetMask("UI")))
         {
             if (hit.collider.CompareTag("Button") && readyToSubmit)

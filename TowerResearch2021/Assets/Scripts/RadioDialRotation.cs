@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class RadioDialRotation : MonoBehaviour
 {
-
+    /// <summary>
+    /// This script is.. nothing?
+    /// </summary>
     public GameObject baseObject;
     private Quaternion startRotation;
     public Light light;
